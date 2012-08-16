@@ -2,4 +2,6 @@ h1. jQuery Clone Ya!
 p. _A jQuery plugin to clone form elements._
 
 CloneYa! clones a div/fieldset/etc with multiple children and recalculates the ids of each child element. It comes with a lot of options to set.
-This line was added because my git browser screwed up!
+
+To use CloneYa!, just initialise on the element containing the form-fields or content to clone:
+bc.. $('.div-to-clone-class-name').cloneya();
