@@ -31,7 +31,7 @@ CloneYa must be invoked on a wrapper with the clonable items as children. It aut
 ```html
 	<div class="clone-wrapper">
 		<div class="toclone">
-		&hellip;
+		...
 			<div class="clone">+</div>
 			<div class="delete">-</div>
 		</div>	
@@ -47,55 +47,52 @@ It need not be div's as in the above example. It might, as well have been table 
 
 ## Options
 
-**option** (*default*)
+**option** *default*
 
 
-**limit** (*999*)
+**limit** *999*
 
 The maximum number of clones that should be generated
 
 
-**cloneThis** (*'.toclone'*)
+**cloneThis** *'.toclone'*
 
 Any valid jQuery selector for the clonable elements
 
 
-**valueClone** (*false*)
+**valueClone** *false*
 
 Copy the values of form inputs inside the clonable?
 
 
-**dataClone** (*false*)
+**dataClone** *false*
 
 Copy the jQuery data with the clone element object?
 
 
-**deepClone** (*false*)
+**deepClone** *false*
 
 Copy the events too, very deep copying?
 
 
-**cloneButton** (*'.clone'*)
+**cloneButton** *'.clone'*
 
 Any valid jQuery selector for the element that triggers cloning. Must be a child of the *cloneThis* selector
 
 
-**deleteButton** (*'.delete'*)
+**deleteButton** *'.delete'*
 
 Any valid jQuery selector for the element that triggers clone deletion. Must be a child of the *cloneThis* selector
 
-**clonePosition** (*'after'*)
+**clonePosition** *'after'*
 
 The position the clone will be inserted.
 
 Possible values:
 
 *'before'* before the clonable
-
 *'after'* after the clonable
-
 *'start'* before the first clone (to do)
-
 *'end'* after the last clone (to do)
 
 ## Events
@@ -123,9 +120,9 @@ The delete event, triggered when the deleteButton is clicked. Useful for custom 
 
 ### Specific events
 
-(*can be used as hooks*)
+*can be used as hooks*
 
-**event** (*parameter1, parameter2, &hellip;*)
+**event** *parameter1, parameter2, &hellip;*
 
 ```javascript
 	$clonewrapper.on( 'clone_after_append', function(e,newclone){
@@ -135,41 +132,41 @@ The delete event, triggered when the deleteButton is clicked. Useful for custom 
 ```
 
 
-**clone_before_clone** (*$toclone*)
+**clone_before_clone** *$toclone*
 
 Just before an element is cloned
 
 
-**clone_form_input** (*$form_input, $toclone, $newclone*)
+**clone_form_input** *$form_input, $toclone, $newclone*
 
 When a form input of a new clone is being processed, after cloning. Useful for reindexing input name
 
 
-**clone_after_clone** (*$toclone, $newclone*)
+**clone_after_clone** *$toclone, $newclone*
 
 Just after the cloning is complete
 
 
-**clone_before_append** (*$newclone*)
+**clone_before_append** *$newclone*
 
 Just before the new clone is appended to the DOM
 
 
-**clone_after_append** (*$newclone*)
+**clone_after_append** *$newclone*
 
 Just after the new clone is appended to the DOM
 
 
-**clone_limit** (*$limit_count, $toclone*)
+**clone_limit** *$limit_count, $toclone*
 
 When the maximum limit for cloning is reached
 
 
-**clone_before_delete** (*$todelete*)
+**clone_before_delete** *$todelete*
 
 Just before a clone is deleted
 
 
-**clone_after_delete** (*NULL*)
+**clone_after_delete** *NULL*
 
 Just after the clone is deleted
