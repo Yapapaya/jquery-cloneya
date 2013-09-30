@@ -57,9 +57,15 @@
         var config = $.extend(defaults, options || {});
 
         // getter function for options
-        this.getConfig = function() {
+        this.getOption = function() {
             return config;
         };
+        
+        // setter function for options
+        this.setOption = function(lateoptions) {
+            $.extend(config, lateoptions || {});
+        };
+        
 
         // add a click handler for the clone button
         elem.on('click', config.cloneButton, function(event) {
@@ -90,7 +96,7 @@
                     deepWithDataAndEvents: config.deepClone
                 });
 
-                // get the form elements
+                // get the form input
                 $newclone.find('input, textarea, select').each(function() {
 
                     // check if the values need to be copied, if not empty them
@@ -102,7 +108,7 @@
                     // each case is specific and I'd rather leave it to the developer
 
                     // custom event hook for index handling
-                    elem.trigger('clone_form_element', $(this));
+                    elem.trigger('clone_form_input', $(this), $toclone, $newclone);
                 });
 
                 // trigger custom event on the original element
@@ -126,7 +132,7 @@
                 elem.trigger('clone_after_append', $newclone);
             } else {
                 // trigger a custom event for hooking
-                elem.trigger('clone_limit', config.limit);
+                elem.trigger('clone_limit', config.limit, $toclone );
             }
 
         });
@@ -136,11 +142,11 @@
             event.preventDefault();
 
             // just a wrapper for delclone event
-            elem.trigger('deletelclone');
+            elem.trigger('clone_delete');
         });
 
         //  the delete clone event
-        elem.on('deleteclone', config.deleteButton, function(event) {
+        elem.on('clone_delete', config.deleteButton, function(event) {
 
             // get the count of all the clones
             var cloneCount = elem.find(config.cloneThis).length;
@@ -153,13 +159,13 @@
                 $todelete = $(this).closest(config.cloneThis);
 
                 // trigger hook
-                elem.trigger('clone_before_remove', $todelete);
+                elem.trigger('clone_before_delete', $todelete);
 
                 // remove the clone from DOM
                 $toremove.remove();
 
                 // trigger hook
-                elem.trigger('clone_after_remove');
+                elem.trigger('clone_after_delete');
 
             }
         });
