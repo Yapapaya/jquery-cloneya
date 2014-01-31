@@ -72,21 +72,24 @@
             event.preventDefault();
 
             // this is just a wrapper for the custom clone event
-            elem.trigger('clone');
+            elem.trigger('clone',[$(this)]);
         });
-
+        
         // the custom clone event
-        elem.on('clone', config.cloneButton, function() {
-
+        elem.on('clone', function(event,$this) {
+        
+        	
             // get the count of all the clones
             var cloneCount = elem.find(config.cloneThis).length;
 
+            
             // check if we've reached the maximum limit
             if (cloneCount < config.limit) {
 
                 // get the closest parent clone
-                $toclone = $(this).closest(config.cloneThis);
-
+                $toclone = $this.closest(config.cloneThis);
+                
+              
                 // trigger a custom event for hooking in
                 elem.trigger('clone_before_clone', $toclone);
 
@@ -108,9 +111,9 @@
                     // each case is specific and I'd rather leave it to the developer
 
                     // custom event hook for index handling
-                    elem.trigger('clone_form_input', $(this), $toclone, $newclone);
+                    elem.trigger('clone_form_input', $this, $toclone, $newclone);
                 });
-
+             
                 // trigger custom event on the original element
                 elem.trigger('clone_after_clone', $toclone, $newclone);
 
@@ -123,6 +126,8 @@
                     $toclone.before($newclone);
                 } else {
                     $toclone.after($newclone);
+             
+                   
                 }
 
                 // reformat the id attributes
@@ -142,11 +147,11 @@
             event.preventDefault();
 
             // just a wrapper for delclone event
-            elem.trigger('clone_delete');
+            elem.trigger('clone_delete',[$(this)]);
         });
 
         //  the delete clone event
-        elem.on('clone_delete', config.deleteButton, function(event) {
+        elem.on('clone_delete', function(event,$this) {
 
             // get the count of all the clones
             var cloneCount = elem.find(config.cloneThis).length;
@@ -156,13 +161,13 @@
             if (cloneCount > 1) {
 
                 // get the closest parent clone
-                $todelete = $(this).closest(config.cloneThis);
+                $todelete = $this.closest(config.cloneThis);
 
                 // trigger hook
                 elem.trigger('clone_before_delete', $todelete);
 
                 // remove the clone from DOM
-                $toremove.remove();
+                $todelete.remove();
 
                 // trigger hook
                 elem.trigger('clone_after_delete');
