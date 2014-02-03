@@ -66,7 +66,12 @@
             $.extend(config, lateoptions || {});
         };
         
-
+        var cloneCount = elem.find(config.cloneThis).length;
+        
+        if (cloneCount <= 2) {
+        	$(config.deleteButton).eq(0).hide();
+        }
+        
         // add a click handler for the clone button
         elem.on('click', config.cloneButton, function(event) {
             event.preventDefault();
@@ -139,6 +144,16 @@
                 // trigger a custom event for hooking
                 elem.trigger('clone_limit', config.limit, $toclone );
             }
+            
+            //handle clone delete buttons
+            if (cloneCount >= 1) {
+            	$(config.deleteButton).show();
+            }
+            
+            if (cloneCount >= config.limit-1) {
+            	$(config.cloneButton).eq(cloneCount).hide();
+            }
+            
 
         });
 
@@ -173,6 +188,16 @@
                 elem.trigger('clone_after_delete');
 
             }
+            
+            //handle clone delete buttons
+            
+            if (cloneCount <= 2) {
+            	$(config.deleteButton).eq(0).hide();
+            }
+            
+            if (cloneCount <= config.limit) {
+            	$(config.cloneButton).show();
+            }              
         });
 
         /**
