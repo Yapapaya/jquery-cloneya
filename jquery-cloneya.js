@@ -66,14 +66,19 @@
             $.extend(config, lateoptions || {});
         };
         
+        //Now, what if the clone button and delete button are not contained in 
+        //the clonable?
+        
+        if(elem.find(config.cloneButton).length){
+            // add a click handler for the clone button
+            elem.on('click', config.cloneButton, function(event) {
+                event.preventDefault();
 
-        // add a click handler for the clone button
-        elem.on('click', config.cloneButton, function(event) {
-            event.preventDefault();
-
-            // this is just a wrapper for the custom clone event
-            elem.trigger('clone',[$(this)]);
-        });
+                // this is just a wrapper for the custom clone event
+                elem.trigger('clone',[$(this)]);
+            });
+        }
+        
         
         // the custom clone event
         elem.on('clone', function(event,$this) {
@@ -141,14 +146,16 @@
             }
 
         });
+        
+        if(elem.find(config.cloneButton).length){
+            // click handler for delete button
+            elem.on('click', config.deleteButton, function(event) {
+                event.preventDefault();
 
-        // click handler for delete button
-        elem.on('click', config.deleteButton, function(event) {
-            event.preventDefault();
-
-            // just a wrapper for delclone event
-            elem.trigger('clone_delete',[$(this)]);
-        });
+                // just a wrapper for delclone event
+                elem.trigger('clone_delete',[$(this)]);
+            });
+        }
 
         //  the delete clone event
         elem.on('clone_delete', function(event,$this) {
