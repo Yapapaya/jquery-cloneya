@@ -45,6 +45,12 @@ CloneYa must be invoked on a wrapper with the clonable items as children. It aut
 
 It need not be div's as in the above example. It might, as well have been table &gt; tr, or a ul &gt; li arrangement. 
 
+### External controllers (*new*)
+
+Cloneya doesn't need the exact markup, as above. Inside, cloneya works via custom events triggered by the click events bound to the clone and delete buttons in the markup.
+
+If the above markup is not found, or if you want an element outside the clonables to be able to trigger deletion and cloning, you can do so by binding the `clone_clone` and `clone_delete` events.
+
 ## Options
 
 **option** *default*

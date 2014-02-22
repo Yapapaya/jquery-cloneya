@@ -7,7 +7,7 @@
 
 (function($) {
 
-    // Create the class CloneYa
+    // Create the cbelass CloneYa
     /**
      * 
      * @param {string} element a valid jQuery selector for the parent element of clones
@@ -75,13 +75,13 @@
                 event.preventDefault();
 
                 // this is just a wrapper for the custom clone event
-                elem.trigger('clone',[$(this)]);
+                elem.trigger('clone_clone',[$(this)]);
             });
         }
         
         
         // the custom clone event
-        elem.on('clone', function(event,$this) {
+        elem.on('clone_clone', function(event,$this) {
         
         	
             // get the count of all the clones
