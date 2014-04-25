@@ -17,7 +17,8 @@ CloneYa is a jQuery class useful for cloning DOM elements with their children. I
             deepClone		: false,
             cloneButton		: '.clone',
             deleteButton	: '.delete',
-            clonePosition	: 'after'
+            clonePosition	: 'after',
+            serializeID         : true
         });
 ```
 
@@ -101,6 +102,10 @@ Possible values:
 *'start'* before the first clone (to do)
 *'end'* after the last clone (to do)
 
+**serializeID** *'true'*
+
+Numerically increment the ids of the inputs to maintain uniqueness
+
 ## Events
 
 ### Generic events
@@ -153,12 +158,12 @@ When a form input of a new clone is being processed, after cloning. Useful for r
 Just after the cloning is complete
 
 
-**clone_before_append** *$newclone*
+**clone_before_append** *$toclone, $newclone*
 
 Just before the new clone is appended to the DOM
 
 
-**clone_after_append** *$newclone*
+**clone_after_append** *$toclone, $newclone*
 
 Just after the new clone is appended to the DOM
 
