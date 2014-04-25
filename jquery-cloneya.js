@@ -51,6 +51,9 @@
             // the position the clone will be inserted
             // relative to the original element
             clonePosition: 'after', // or 'before'
+            
+            // whether to serialize the IDs, automatically
+            serializeID: true,
         };
 
         // merge the passed options object with defaults
@@ -75,7 +78,7 @@
                 event.preventDefault();
 
                 // this is just a wrapper for the custom clone event
-                elem.trigger('clone_clone',[$(this)]);
+                elem.triggerHandler('clone_clone',[$(this)]);
             });
         }
         
@@ -96,7 +99,7 @@
                 
               
                 // trigger a custom event for hooking in
-                elem.trigger('clone_before_clone', $toclone);
+                elem.triggerHandler('clone_before_clone', [$toclone]);
 
                 // clone it
                 $newclone = $toclone.clone({
@@ -116,14 +119,14 @@
                     // each case is specific and I'd rather leave it to the developer
 
                     // custom event hook for index handling
-                    elem.trigger('clone_form_input', $this, $toclone, $newclone);
+                    elem.triggerHandler('clone_form_input',[ $(this), $toclone, $newclone]);
                 });
              
                 // trigger custom event on the original element
-                elem.trigger('clone_after_clone', $toclone, $newclone);
+                elem.triggerHandler('clone_after_clone', [$toclone, $newclone]);
 
                 // trigger custom event on the new clone
-                elem.trigger('clone_before_append', $newclone);
+                elem.triggerHandler('clone_before_append', [$toclone, $newclone]);
 
                 // get the position where the clone has to be added
                 // and add the newclone
@@ -139,10 +142,10 @@
                 redoIDs();
 
                 // trigger custom event for hooking
-                elem.trigger('clone_after_append', $newclone);
+                elem.triggerHandler('clone_after_append', [$toclone, $newclone]);
             } else {
                 // trigger a custom event for hooking
-                elem.trigger('clone_limit', config.limit, $toclone );
+                elem.triggerHandler('clone_limit', config.limit, [$toclone] );
             }
 
         });
@@ -153,7 +156,7 @@
                 event.preventDefault();
 
                 // just a wrapper for delclone event
-                elem.trigger('clone_delete',[$(this)]);
+                elem.triggerHandler('clone_delete',[$(this)]);
             });
         }
 
@@ -171,15 +174,19 @@
                 $todelete = $this.closest(config.cloneThis);
 
                 // trigger hook
-                elem.trigger('clone_before_delete', $todelete);
-
-                // remove the clone from DOM
-                $todelete.remove();
-
-                // trigger hook
-                elem.trigger('clone_after_delete');
+                $.when(elem.triggerHandler('clone_before_delete', [$todelete]))
+                .done(function(){
+                    
+                    elem.triggerHandler('clone_after_delete');
+                });
 
             }
+        });
+        
+        elem.on('clone_before_delete', function(event,$todelete){
+            $($todelete).remove();
+
+
         });
 
         /**
@@ -195,7 +202,7 @@
             // get the id of the first clone (hoping to increment the ids)
             mainid = elem.find(config.cloneThis).first().attr('id');
             
-            $(config.cloneThis).each(function(i) {
+            elem.find(config.cloneThis).each(function(i) {
                 
                 // assign the index to a string var for appending to the ids
                 // 0 index will have no number at the end
