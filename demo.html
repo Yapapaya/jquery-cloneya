@@ -4,13 +4,19 @@
         <title>jQuery CloneYa demo</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
         <style type="text/css">
             .demo-wrap{
                 margin: 40px auto;
                 display:block;
                 position:relative;
                 max-width:500px;
+            }
+
+            .inner-wrap{
+                margin-left:10px;
+                padding-left:10px;
+                border-left:1px #ccc solid;
             }
             input, textarea { 
                 padding: 9px; 
@@ -50,116 +56,160 @@
     </head>
     <body>
         <!--simple clone demo start-->
-<div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/yapapaya/jquery-cloneya">View on GitHub</a>
+        <div id="header_wrap" class="outer">
+            <header class="inner">
+                <a id="forkme_banner" href="https://github.com/yapapaya/jquery-cloneya">View on GitHub</a>
 
-          <h1 id="project_title">Jquery Cloneya Demo</h1>
-          <h2 id="project_tagline">A jquery plugin to clone form elements</h2>
-<a href=".">Back</a>
+                <h1 id="project_title">Jquery Cloneya Demo</h1>
+                <h2 id="project_tagline">A jquery plugin to clone form elements</h2>
+                <a href=".">Back</a>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/yapapaya/jquery-cloneya/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/yapapaya/jquery-cloneya/tarball/master">Download this project as a tar.gz file</a>
+                <section id="downloads">
+                    <a class="zip_download_link" href="https://github.com/yapapaya/jquery-cloneya/zipball/master">Download this project as a .zip file</a>
+                    <a class="tar_download_link" href="https://github.com/yapapaya/jquery-cloneya/tarball/master">Download this project as a tar.gz file</a>
+                </section>
+            </header>
+        </div>
+        <div id="main_content_wrap" class="outer">
+            <!--simple clone demo start-->
+            <section id="simple-clone" class="demo-wrap">
+                <h2>Simple Cloning</h2>
+                <form class="form" method="post"> 
+
+                    <div class="toclone">
+                        <p class="name"> 
+                            <input type="text" name="name[]" id="sname" /> 
+                            <label for="name">Name</label> 
+                        </p> 
+
+                        <p class="email"> 
+                            <input type="text" name="email[]" id="semail" /> 
+                            <label for="email">E-mail</label> 
+                        </p> 
+
+                        <p class="web"> 
+                            <input type="text" name="web[]" id="sweb" /> 
+                            <label for="web">Website</label> 
+                        </p>  
+                        <a href="#" class="clone">clone</a>
+                        <a href="#" class="delete">delete</a>
+                    </div>
+
+                    <p class="submit"> 
+                        <input type="submit" value="Save" /> 
+                    </p> 
+
+                </form>
             </section>
-        </header>
-    </div>
-<div id="main_content_wrap" class="outer">
+            <!--simple clone demo end-->
 
-        <section id="simple-clone" class="demo-wrap">
-            <h2>Simple Cloning</h2>
-            <form class="form" method="post"> 
+            <!--nested clone demo start-->
+            <section id="nest-clone" class="demo-wrap">
+                <h2>Nested Cloning</h2>
+                <form class="form" method="post"> 
 
-                <div class="toclone">
-                    <p class="name"> 
-                        <input type="text" name="name[]" id="sname" /> 
-                        <label for="name">Name</label> 
+                    <div class="toclone">
+                        
+                        <p class="name"> 
+                            <input type="text" name="name[]" id="sname" /> 
+                            <label for="name">Name</label> 
+                        </p> 
+                        <div class="inner-wrap">
+                            <strong>Contact Information</strong>
+                            <div class="clone-inner">
+                                <p class="email"> 
+                                    <input type="text" name="email[]" id="semail" /> 
+                                    <label for="email">E-mail</label> 
+                                </p> 
+
+                                <p class="web"> 
+                                    <input type="text" name="web[]" id="sweb" /> 
+                                    <label for="web">Website</label> 
+                                </p>
+
+                                <p class="phone"> 
+                                    <input type="text" name="phone[]" id="sweb" /> 
+                                    <label for="web">Phone</label> 
+                                </p>  
+                                <a href="#" class="phclone">clone</a>
+                                <a href="#" class="phdelete">delete</a>
+                            </div>
+                        </div>
+                        <a href="#" class="clone">clone</a>
+                        <a href="#" class="delete">delete</a>
+                    </div>
+
+                    <p class="submit"> 
+                        <input type="submit" value="Save" /> 
                     </p> 
 
-                    <p class="email"> 
-                        <input type="text" name="email[]" id="semail" /> 
-                        <label for="email">E-mail</label> 
+                </form>
+            </section>
+            <!--nested clone demo end-->
+
+            <!--limit clone demo start-->
+            <section id="limit-clone" class="demo-wrap">
+                <h2>Limit clones to max 3</h2>
+                <form class="form" method="post"> 
+
+                    <div class="toclone">
+                        <p class="name"> 
+                            <input type="text" name="name[]" id="lname" /> 
+                            <label for="name">Name</label> 
+                        </p> 
+
+                        <p class="email"> 
+                            <input type="text" name="email[]" id="lemail" /> 
+                            <label for="email">E-mail</label> 
+                        </p> 
+
+                        <p class="web"> 
+                            <input type="text" name="web[]" id="lweb" /> 
+                            <label for="web">Website</label> 
+                        </p>  
+                        <a href="#" class="clone">clone</a>
+                        <a href="#" class="delete">delete</a>
+                    </div>
+
+                    <p class="submit"> 
+                        <input type="submit" value="Save" /> 
                     </p> 
 
-                    <p class="web"> 
-                        <input type="text" name="web[]" id="sweb" /> 
-                        <label for="web">Website</label> 
-                    </p>  
-                    <a href="#" class="clone">clone</a>
-                    <a href="#" class="delete">delete</a>
-                </div>
+                </form>
+            </section>
+            <!--limit clone demo end-->
 
-                <p class="submit"> 
-                    <input type="submit" value="Save" /> 
-                </p> 
+            <!--animated clone demo start-->
+            <section id="animate-clone" class="demo-wrap">
+                <h2>Animated with custom events</h2>
+                <form class="form" method="post"> 
 
-            </form>
-        </section>
-        <!--simple clone demo end-->
-        
-        <!--limit clone demo start-->
-        <section id="limit-clone" class="demo-wrap">
-            <h2>Limit clones to max 3</h2>
-            <form class="form" method="post"> 
+                    <div class="toclone">
+                        <p class="name"> 
+                            <input type="text" name="name[]" id="aname" /> 
+                            <label for="name">Name</label> 
+                        </p> 
 
-                <div class="toclone">
-                    <p class="name"> 
-                        <input type="text" name="name[]" id="lname" /> 
-                        <label for="name">Name</label> 
+                        <p class="email"> 
+                            <input type="text" name="email[]" id="aemail" /> 
+                            <label for="email">E-mail</label> 
+                        </p> 
+
+                        <p class="web"> 
+                            <input type="text" name="web[]" id="aweb" /> 
+                            <label for="web">Website</label> 
+                        </p>  
+                        <a href="#" class="clone">clone</a>
+                        <a href="#" class="delete">delete</a>
+                    </div>
+
+                    <p class="submit"> 
+                        <input type="submit" value="Save" /> 
                     </p> 
 
-                    <p class="email"> 
-                        <input type="text" name="email[]" id="lemail" /> 
-                        <label for="email">E-mail</label> 
-                    </p> 
-
-                    <p class="web"> 
-                        <input type="text" name="web[]" id="lweb" /> 
-                        <label for="web">Website</label> 
-                    </p>  
-                    <a href="#" class="clone">clone</a>
-                    <a href="#" class="delete">delete</a>
-                </div>
-
-                <p class="submit"> 
-                    <input type="submit" value="Save" /> 
-                </p> 
-
-            </form>
-        </section>
-        <!--limit clone demo end-->
-        
-        <!--animated clone demo start-->
-        <section id="animate-clone" class="demo-wrap">
-            <h2>Animated with custom events</h2>
-            <form class="form" method="post"> 
-
-                <div class="toclone">
-                    <p class="name"> 
-                        <input type="text" name="name[]" id="aname" /> 
-                        <label for="name">Name</label> 
-                    </p> 
-
-                    <p class="email"> 
-                        <input type="text" name="email[]" id="aemail" /> 
-                        <label for="email">E-mail</label> 
-                    </p> 
-
-                    <p class="web"> 
-                        <input type="text" name="web[]" id="aweb" /> 
-                        <label for="web">Website</label> 
-                    </p>  
-                    <a href="#" class="clone">clone</a>
-                    <a href="#" class="delete">delete</a>
-                </div>
-
-                <p class="submit"> 
-                    <input type="submit" value="Save" /> 
-                </p> 
-
-            </form>
-        </section>
-</div>
+                </form>
+            </section>
+        </div>
         <!--animated clone demo end-->
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js">
@@ -167,12 +217,20 @@
         <script src="javascripts/jquery-cloneya.min.js"></script>
         <script>
             $('#simple-clone').cloneya();
+            
+            $('#nest-clone').cloneya();
+            
+            $('.inner-wrap').cloneya({
+                cloneThis: '.clone-inner',
+                cloneButton: '.phclone',
+                deleteButton: '.phdelete',
+            });
 
             $('#limit-clone').cloneya({
                 limit: 3
             })
                     .on('clone_limit', function(e, limit, toclone) {
-                        limitmsg = 'No more than '+limit+' clones for you!'
+                        limitmsg = 'No more than ' + limit + ' clones for you!'
                         alert(limitmsg);
                     });
 
@@ -185,7 +243,7 @@
                     })
                     .on('clone_before_append', function(event, toclone, newclone) {
                         $(newclone).css('display', 'none');
-                        $(toclone).fadeOut('fast', function(){
+                        $(toclone).fadeOut('fast', function() {
                             $(this).fadeIn('fast');
                         });
                     })
@@ -201,7 +259,7 @@
                             $(this).remove();
                         });
                     })
-                    .on('clone_after_delete', function(event){
+                    .on('clone_after_delete', function(event) {
                         // do something;
                     });
         </script>
