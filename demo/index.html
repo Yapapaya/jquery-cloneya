@@ -11,6 +11,11 @@
                 position:relative;
                 max-width:500px;
             }
+            .inner-wrap{
+                margin-left:10px;
+                padding-left:10px;
+                border-left:1px #ccc solid;
+            }
             input, textarea { 
                 padding: 9px; 
                 border: solid 1px #E5E5E5; 
@@ -79,7 +84,51 @@
             </form>
         </div>
         <!--simple clone demo end-->
-        
+
+        <!--nested clone demo start-->
+        <div id="nest-clone" class="demo-wrap">
+            <h2>Nested Cloning</h2>
+            <form class="form" method="post"> 
+
+                <div class="toclone">
+
+                    <p class="name"> 
+                        <input type="text" name="name[]" id="sname" /> 
+                        <label for="name">Name</label> 
+                    </p> 
+                    <div class="inner-wrap">
+                        <strong>Contact Information</strong>
+                        <div class="clone-inner">
+                            <p class="email"> 
+                                <input type="text" name="email[]" id="semail" /> 
+                                <label for="email">E-mail</label> 
+                            </p> 
+
+                            <p class="web"> 
+                                <input type="text" name="web[]" id="sweb" /> 
+                                <label for="web">Website</label> 
+                            </p>
+
+                            <p class="phone"> 
+                                <input type="text" name="phone[]" id="sweb" /> 
+                                <label for="web">Phone</label> 
+                            </p>  
+                            <a href="#" class="phclone">clone</a>
+                            <a href="#" class="phdelete">delete</a>
+                        </div>
+                    </div>
+                    <a href="#" class="clone">clone</a>
+                    <a href="#" class="delete">delete</a>
+                </div>
+
+                <p class="submit"> 
+                    <input type="submit" value="Save" /> 
+                </p> 
+
+            </form>
+        </div>
+        <!--nested clone demo end-->
+
         <!--limit clone demo start-->
         <div id="limit-clone" class="demo-wrap">
             <h2>Limit clones to max 3</h2>
@@ -111,7 +160,7 @@
             </form>
         </div>
         <!--limit clone demo end-->
-        
+
         <!--animated clone demo start-->
         <div id="animate-clone" class="demo-wrap">
             <h2>Animated with custom events</h2>
@@ -149,12 +198,20 @@
         <script src="../jquery-cloneya.js"></script>
         <script>
             $('#simple-clone').cloneya();
+            
+            $('#nest-clone').cloneya();
+            
+            $('.inner-wrap').cloneya({
+                cloneThis: '.clone-inner',
+                cloneButton: '.phclone',
+                deleteButton: '.phdelete',
+            });
 
             $('#limit-clone').cloneya({
                 limit: 3
             })
                     .on('clone_limit', function(e, limit, toclone) {
-                        limitmsg = 'No more than '+limit+' clones for you!'
+                        limitmsg = 'No more than ' + limit + ' clones for you!'
                         alert(limitmsg);
                     });
 
@@ -167,7 +224,7 @@
                     })
                     .on('clone_before_append', function(event, toclone, newclone) {
                         $(newclone).css('display', 'none');
-                        $(toclone).fadeOut('fast', function(){
+                        $(toclone).fadeOut('fast', function() {
                             $(this).fadeIn('fast');
                         });
                     })
@@ -183,7 +240,7 @@
                             $(this).remove();
                         });
                     })
-                    .on('clone_after_delete', function(event){
+                    .on('clone_after_delete', function(event) {
                         // do something;
                     });
         </script>
