@@ -4,6 +4,7 @@
         <title>jQuery CloneYa demo</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
+<link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
         <style type="text/css">
             .demo-wrap{
                 margin: 40px auto;
@@ -49,7 +50,23 @@
     </head>
     <body>
         <!--simple clone demo start-->
-        <div id="simple-clone" class="demo-wrap">
+<div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/yapapaya/jquery-cloneya">View on GitHub</a>
+
+          <h1 id="project_title">Jquery Cloneya Demo</h1>
+          <h2 id="project_tagline">A jquery plugin to clone form elements</h2>
+<a href=".">Back</a>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/yapapaya/jquery-cloneya/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/yapapaya/jquery-cloneya/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+<div id="main_content_wrap" class="outer">
+
+        <section id="simple-clone" class="demo-wrap">
             <h2>Simple Cloning</h2>
             <form class="form" method="post"> 
 
@@ -77,11 +94,11 @@
                 </p> 
 
             </form>
-        </div>
+        </section>
         <!--simple clone demo end-->
         
         <!--limit clone demo start-->
-        <div id="limit-clone" class="demo-wrap">
+        <section id="limit-clone" class="demo-wrap">
             <h2>Limit clones to max 3</h2>
             <form class="form" method="post"> 
 
@@ -109,11 +126,11 @@
                 </p> 
 
             </form>
-        </div>
+        </section>
         <!--limit clone demo end-->
         
         <!--animated clone demo start-->
-        <div id="animate-clone" class="demo-wrap">
+        <section id="animate-clone" class="demo-wrap">
             <h2>Animated with custom events</h2>
             <form class="form" method="post"> 
 
@@ -141,7 +158,8 @@
                 </p> 
 
             </form>
-        </div>
+        </section>
+</div>
         <!--animated clone demo end-->
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js">
