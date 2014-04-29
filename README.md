@@ -6,6 +6,7 @@ CloneYa is a jQuery class useful for cloning DOM elements with their children. I
 
 ## Usage
 
+[View a Demo](http://yapapaya.github.io/jquery-cloneya/demo.html "View a Demo")
 
 ```javascript
 	
