@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Jquery-cloneya : A jquery plugin to clone form elements" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Jquery-cloneya</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/yapapaya/jquery-cloneya">View on GitHub</a>
+
+          <h1 id="project_title">Jquery-cloneya</h1>
+          <h2 id="project_tagline">A jquery plugin to clone form elements</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/yapapaya/jquery-cloneya/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/yapapaya/jquery-cloneya/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="jquery-cloneya" class="anchor" href="#jquery-cloneya"><span class="octicon octicon-link"></span></a>jQuery CloneYa</h1>
+
+<p>CloneYa is a jQuery class useful for cloning DOM elements with their children. I wanted to be able to clone form inputs and groups of form inputs or fieldsets, or even whole forms. With time, I've hopefully made it very generic.</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<div class="highlight highlight-javascript"><pre>
+    <span class="nx">$clonecontainer</span><span class="p">.</span><span class="nx">cloneya</span><span class="p">({</span>
+            <span class="nx">limit</span>       <span class="o">:</span> <span class="mi">999</span><span class="p">,</span>
+            <span class="nx">cloneThis</span>       <span class="o">:</span> <span class="s1">'.toclone'</span><span class="p">,</span>
+            <span class="nx">valueClone</span>      <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nx">dataClone</span>       <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nx">deepClone</span>       <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nx">cloneButton</span>     <span class="o">:</span> <span class="s1">'.clone'</span><span class="p">,</span>
+            <span class="nx">deleteButton</span>    <span class="o">:</span> <span class="s1">'.delete'</span><span class="p">,</span>
+            <span class="nx">clonePosition</span>   <span class="o">:</span> <span class="s1">'after'</span><span class="p">,</span>
+            <span class="nx">serializeID</span>         <span class="o">:</span> <span class="kc">true</span>
+        <span class="p">});</span>
+</pre></div>
+
+<h2>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h2>
+
+<p>CloneYa must be invoked on a wrapper with the clonable items as children. It automatically recognizes this markup, by default (except the <em>clone-wrapper</em>) :</p>
+
+<div class="highlight highlight-html"><pre>    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"clone-wrapper"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"toclone"</span><span class="nt">&gt;</span>
+        ...
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"clone"</span><span class="nt">&gt;</span>+<span class="nt">&lt;/div&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"delete"</span><span class="nt">&gt;</span>-<span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>  
+    <span class="nt">&lt;/div&gt;</span>
+</pre></div>
+
+<div class="highlight highlight-javascript"><pre>    <span class="nx">$</span><span class="p">(</span><span class="s1">'clone-wrapper'</span><span class="p">).</span><span class="nx">cloneya</span><span class="p">();</span>
+</pre></div>
+
+<p>It need not be div's as in the above example. It might, as well have been table &gt; tr, or a ul &gt; li arrangement. </p>
+
+<h3>
+<a name="external-controllers-new" class="anchor" href="#external-controllers-new"><span class="octicon octicon-link"></span></a>External controllers (<em>new</em>)</h3>
+
+<p>Cloneya doesn't need the exact markup, as above. Inside, cloneya works via custom events triggered by the click events bound to the clone and delete buttons in the markup.</p>
+
+<p>If the above markup is not found, or if you want an element outside the clonables to be able to trigger deletion and cloning, you can do so by binding the <code>clone_clone</code> and <code>clone_delete</code> events.</p>
+
+<h2>
+<a name="options" class="anchor" href="#options"><span class="octicon octicon-link"></span></a>Options</h2>
+
+<p><strong>option</strong> <em>default</em></p>
+
+<p><strong>limit</strong> <em>999</em></p>
+
+<p>The maximum number of clones that should be generated</p>
+
+<p><strong>cloneThis</strong> <em>'.toclone'</em></p>
+
+<p>Any valid jQuery selector for the clonable elements</p>
+
+<p><strong>valueClone</strong> <em>false</em></p>
+
+<p>Copy the values of form inputs inside the clonable?</p>
+
+<p><strong>dataClone</strong> <em>false</em></p>
+
+<p>Copy the jQuery data with the clone element object?</p>
+
+<p><strong>deepClone</strong> <em>false</em></p>
+
+<p>Copy the events too, very deep copying?</p>
+
+<p><strong>cloneButton</strong> <em>'.clone'</em></p>
+
+<p>Any valid jQuery selector for the element that triggers cloning. Must be a child of the <em>cloneThis</em> selector</p>
+
+<p><strong>deleteButton</strong> <em>'.delete'</em></p>
+
+<p>Any valid jQuery selector for the element that triggers clone deletion. Must be a child of the <em>cloneThis</em> selector</p>
+
+<p><strong>clonePosition</strong> <em>'after'</em></p>
+
+<p>The position the clone will be inserted.</p>
+
+<p>Possible values:</p>
+
+<p><em>'before'</em> before the clonable
+<em>'after'</em> after the clonable
+<em>'start'</em> before the first clone (to do)
+<em>'end'</em> after the last clone (to do)</p>
+
+<p><strong>serializeID</strong> <em>'true'</em></p>
+
+<p>Numerically increment the ids of the inputs to maintain uniqueness</p>
+
+<h2>
+<a name="events" class="anchor" href="#events"><span class="octicon octicon-link"></span></a>Events</h2>
+
+<h3>
+<a name="generic-events" class="anchor" href="#generic-events"><span class="octicon octicon-link"></span></a>Generic events</h3>
+
+<div class="highlight highlight-javascript"><pre>    <span class="nx">$clonewrapper</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span> <span class="s1">'clone_clone'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'yay! cloned again!'</span><span class="p">);</span>
+    <span class="p">});</span>
+</pre></div>
+
+<div class="highlight highlight-javascript"><pre>    <span class="nx">$my_custom_clone_trigger</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'.clone-that'</span><span class="p">);</span>
+    <span class="nx">$my_custom_clone_trigger</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span> <span class="s1">'mouseenter'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+        <span class="nx">$clonewrapper</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">'clone_clone'</span><span class="p">);</span>
+    <span class="p">});</span>
+</pre></div>
+
+<p><strong>clone_clone</strong>
+The clone event, triggered when the cloneButton is clicked. Useful for custom binding</p>
+
+<p><strong>clone_delete</strong>
+The delete event, triggered when the deleteButton is clicked. Useful for custom binding</p>
+
+<h3>
+<a name="specific-events" class="anchor" href="#specific-events"><span class="octicon octicon-link"></span></a>Specific events</h3>
+
+<p><em>can be used as hooks</em></p>
+
+<p><strong>event</strong> <em>parameter1, parameter2, …</em></p>
+
+<div class="highlight highlight-javascript"><pre>    <span class="nx">$clonewrapper</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span> <span class="s1">'clone_after_append'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span><span class="nx">newclone</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'a new clone was created:'</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">newclone</span> <span class="p">);</span>
+    <span class="p">});</span>
+</pre></div>
+
+<p><strong>clone_before_clone</strong> <em>$toclone</em></p>
+
+<p>Just before an element is cloned</p>
+
+<p><strong>clone_form_input</strong> <em>$form_input, $toclone, $newclone</em></p>
+
+<p>When a form input of a new clone is being processed, after cloning. Useful for reindexing input name</p>
+
+<p><strong>clone_after_clone</strong> <em>$toclone, $newclone</em></p>
+
+<p>Just after the cloning is complete</p>
+
+<p><strong>clone_before_append</strong> <em>$toclone, $newclone</em></p>
+
+<p>Just before the new clone is appended to the DOM</p>
+
+<p><strong>clone_after_append</strong> <em>$toclone, $newclone</em></p>
+
+<p>Just after the new clone is appended to the DOM</p>
+
+<p><strong>clone_limit</strong> <em>$limit_count, $toclone</em></p>
+
+<p>When the maximum limit for cloning is reached</p>
+
+<p><strong>clone_before_delete</strong> <em>$todelete</em></p>
+
+<p>Just before a clone is deleted</p>
+
+<p><strong>clone_after_delete</strong> <em>NULL</em></p>
+
+<p>Just after the clone is deleted</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Jquery-cloneya maintained by <a href="https://github.com/yapapaya">yapapaya</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
