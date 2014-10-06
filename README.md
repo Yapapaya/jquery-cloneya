@@ -41,7 +41,7 @@ CloneYa must be invoked on a wrapper with the clonable items as children. It aut
 ```
 
 ```javascript
-	$('clone-wrapper').cloneya();
+	$('.clone-wrapper').cloneya();
 ```
 
 

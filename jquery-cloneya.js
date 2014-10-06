@@ -238,6 +238,23 @@
                             $(this).attr('id', id + j);
                         }
                     }
+		    
+		    var name = $(this).attr('name');
+		    // This will increment the numeric array index for cloned field names
+		    if (name) {
+			var matches = name.match(/\[([^}]+)\]/);
+			
+			 if(matches && matches.length >= 1){
+			 
+				 var st =name;
+                                 name = [].map.call(st,function(s,i){				   
+					return (!isNaN(+s)&&st[i-1]==='[' &&st[i+1]===']')?i:s;
+				    }).join('');
+				 
+				$(this).attr('name',name); 
+			 }
+		    }
+		    
                 });
             });
 
