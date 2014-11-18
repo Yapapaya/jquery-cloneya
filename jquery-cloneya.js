@@ -247,8 +247,8 @@
 			 if(matches && matches.length >= 1){
 			 
 				 var st =name;
-                                 name = [].map.call(st,function(s,i){				   
-					return (!isNaN(+s)&&st[i-1]==='[' &&st[i+1]===']')?i:s;
+                                 name = [].map.call(st,function(s,n){				   
+					return (!isNaN(+s)&&st[n-1]==='[' &&st[n+1]===']')?i:s;
 				    }).join('');
 				 
 				$(this).attr('name',name); 
