@@ -217,10 +217,11 @@
                     $(this).attr('id', mainid + j);
                 }
                 
+                var id,nId;
                 // take all the elements inside the clone
                 $(this).find('*').each(function() {
                     
-                    var id = $(this).attr('id');
+                    id = $(this).attr('id');
                     if (id) {
                         // match the id with the regex to get the string part
                         // separate from the number part 
@@ -230,14 +231,19 @@
                         if (match && match.length === 3) {
                             // just take the string part
                             // add the new number to it
-                            $(this).attr('id', match[1] + j);
+                            nId = match[1] + j;
+                            $(this).attr('id', nId);
                         } else {
                             // else there was no number,
                             // this was earlier the first element
                             // just add the number to its id
-                            $(this).attr('id', id + j);
+                            nId = id + j;
+                            $(this).attr('id',nId);
                         }
                     }
+                    
+                    //update label                    
+                    $(this).closest(config.cloneThis).find("label[for='"+id+"']").attr('for',nId);                    
 		    
 		    var name = $(this).attr('name');
 		    // This will increment the numeric array index for cloned field names
