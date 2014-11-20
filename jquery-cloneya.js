@@ -54,6 +54,9 @@
             
             // whether to serialize the IDs, automatically
             serializeID: true,
+            
+            //ignore specific content from the clones
+            ignore: 'label.error',
         };
 
         // merge the passed options object with defaults
@@ -137,7 +140,11 @@
              
                    
                 }
-
+                
+                if (config.ignore) {
+                	 $newclone.find(config.ignore).remove();	
+                }
+                
                 // reformat the id attributes
                 redoIDs();
 
