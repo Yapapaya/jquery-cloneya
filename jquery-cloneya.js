@@ -111,7 +111,7 @@
                 $newclone.find('input, textarea, select').each(function() {
 
                     // check if the values need to be copied, if not empty them
-                    if (!config.valueClone) {
+                     if (!config.valueClone && !$(this).is(':checkbox') && !$(this).is(':radio')) {
                         $(this).val('');
                     }
 
