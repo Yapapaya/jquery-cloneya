@@ -20,7 +20,7 @@ CloneYa is a jQuery class useful for cloning DOM elements with their children. I
             deleteButton	: '.delete',
             clonePosition	: 'after',
             serializeID         : true,
-            ignore: 'label.error'
+            ignore		: 'label.error'
         });
 ```
 
@@ -108,7 +108,8 @@ Possible values:
 
 Numerically increment the ids of the inputs to maintain uniqueness
 
-**ignore** **'label.error'**
+**ignore** *'label.error'*
+
 Ignore specific content from the clone
 
 ## Events
