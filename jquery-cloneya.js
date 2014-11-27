@@ -212,7 +212,7 @@
         	
             if (!config.valueClone && !el.hasClass('noEmpty')) {
              
-            	if(el.is(':checkbox') && el.is(':radio')){
+            	if(el.is(':checkbox') || el.is(':radio')){
             		
             		el.prop('checked',false);
             	}
