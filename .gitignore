@@ -1,3 +1,9 @@
 /README.textile~
 nbproject/*
 /js/
+*~
+*.swp
+*.swo
+.buildpath
+.project
+.settings/

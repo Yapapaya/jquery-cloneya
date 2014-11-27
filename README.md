@@ -179,7 +179,7 @@ Just after the new clone is appended to the DOM
 When the maximum limit for cloning is reached
 
 
-**clone_before_delete** *$todelete*
+**clone_before_delete** *$todelete, cloneCount*
 
 Just before a clone is deleted
 

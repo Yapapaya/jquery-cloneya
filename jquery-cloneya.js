@@ -168,23 +168,30 @@
         //  the delete clone event
         elem.on('clone_delete', function(event,$this) {
 
+        	
             // get the count of all the clones
             var cloneCount = elem.find(config.cloneThis).length;
-            
+
             // get the closest parent clone
             $todelete = $this.closest(config.cloneThis);
+            
+            // trigger hook
+            $.when(elem.triggerHandler('clone_before_delete', [$todelete,cloneCount]))
+            .done(function(){
                 
+                elem.triggerHandler('clone_after_delete');
+            });
+
+
+        });
+        
+        elem.on('clone_before_delete', function(event,$todelete,cloneCount){
+        	
             // never delete all the clones
             // at least one must remain
             if (cloneCount > 1) {
-
-                // trigger hook
-                $.when(elem.triggerHandler('clone_before_delete', [$todelete]))
-                .done(function(){
-                    
-                    elem.triggerHandler('clone_after_delete');
-                });
-
+            	            	
+            	$($todelete).remove();            
             }
             else{
             	
@@ -194,10 +201,6 @@
             	});
             	
             }            
-        });
-        
-        elem.on('clone_before_delete', function(event,$todelete){
-            $($todelete).remove();
 
 
         });
