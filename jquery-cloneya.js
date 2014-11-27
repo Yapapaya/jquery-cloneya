@@ -114,9 +114,7 @@
                 $newclone.find('input, textarea, select').each(function() {
 
                     // check if the values need to be copied, if not empty them
-                     if (!config.valueClone && !$(this).is(':checkbox') && !$(this).is(':radio')) {
-                        $(this).val('');
-                    }
+                     _clearForm($(this));
 
                     // removed the portion taking care of the index
                     // each case is specific and I'd rather leave it to the developer
@@ -172,13 +170,13 @@
 
             // get the count of all the clones
             var cloneCount = elem.find(config.cloneThis).length;
-
+            
+            // get the closest parent clone
+            $todelete = $this.closest(config.cloneThis);
+                
             // never delete all the clones
             // at least one must remain
             if (cloneCount > 1) {
-
-                // get the closest parent clone
-                $todelete = $this.closest(config.cloneThis);
 
                 // trigger hook
                 $.when(elem.triggerHandler('clone_before_delete', [$todelete]))
@@ -188,6 +186,14 @@
                 });
 
             }
+            else{
+            	
+            	// First clone form can't be deleted, but the values should be removed from first form           	
+            	$todelete.find('input, textarea, select').each(function() {            	
+            		_clearForm($(this));
+            	});
+            	
+            }            
         });
         
         elem.on('clone_before_delete', function(event,$todelete){
@@ -196,6 +202,25 @@
 
         });
 
+        /*
+         * Clear Form will used to clear the values of the form
+         */
+        var _clearForm = function(el){
+        	
+            if (!config.valueClone && !el.hasClass('noEmpty')) {
+             
+            	if(el.is(':checkbox') && el.is(':radio')){
+            		
+            		el.prop('checked',false);
+            	}
+            	else{
+            		el.val('');	
+            	}
+            	
+            }
+        	
+        };
+        
         /**
          * Redo the id attribute, serially
          */
