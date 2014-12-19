@@ -57,6 +57,9 @@
             
             //ignore specific content from the clones
             ignore: 'label.error',
+
+            //It defaultly renders number of clones
+            defaultRender: false,
         };
 
         // merge the passed options object with defaults
@@ -300,6 +303,14 @@
             });
 
         };
+
+        //onload        
+        if(config.defaultRender){
+        	for(i=1; i<config.defaultRender;i++){               		
+        		$(config.cloneButton).last().trigger("click");
+        	}
+        }   
+
     };
     
     // add the cloneya to the global object
