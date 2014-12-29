@@ -269,7 +269,8 @@
                         if (match && match.length === 3) {
                             // just take the string part
                             // add the new number to it
-                            nId = match[1] + j;
+                            nId = id.replace(/\d+$/, "") + j;			    
+			    
                             $(this).attr('id', nId);
                         } else {
                             // else there was no number,
