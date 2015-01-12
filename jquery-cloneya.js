@@ -91,8 +91,7 @@
         
         // the custom clone event
         elem.on('clone_clone', function(event,$this) {
-        
-        	
+                
             // get the count of all the clones
             var cloneCount = elem.find(config.cloneThis).length;
 
@@ -162,7 +161,7 @@
             // click handler for delete button
             elem.on('click', config.deleteButton, function(event) {
                 event.preventDefault();
-
+                
                 // just a wrapper for delclone event
                 elem.triggerHandler('clone_delete',[$(this)]);
             });
@@ -170,13 +169,12 @@
 
         //  the delete clone event
         elem.on('clone_delete', function(event,$this) {
-
-        	
-            // get the count of all the clones
-            var cloneCount = elem.find(config.cloneThis).length;
-
+                
             // get the closest parent clone
             $todelete = $this.closest(config.cloneThis);
+            
+            // get the count of all the sibling clones
+            var cloneCount = $todelete.siblings().length;
             
             // trigger hook
             $.when(elem.triggerHandler('clone_before_delete', [$todelete,cloneCount]))
