@@ -91,16 +91,18 @@
         
         // the custom clone event
         elem.on('clone_clone', function(event,$this) {
+             
+            // get the closest parent clone
+            $toclone = $this.closest(config.cloneThis);
                 
-            // get the count of all the clones
-            var cloneCount = elem.find(config.cloneThis).length;
-
+                
+            // get the count of all the sibling clones
+            var cloneCount = $todelete.siblings().length;
+            
             
             // check if we've reached the maximum limit
             if (cloneCount < config.limit) {
 
-                // get the closest parent clone
-                $toclone = $this.closest(config.cloneThis);
                 
               
                 // trigger a custom event for hooking in
