@@ -97,7 +97,7 @@
                 
                 
             // get the count of all the sibling clones
-            var cloneCount = $todelete.siblings().length;
+            var cloneCount = $toclone.siblings().add($toclone).length;
             
             
             // check if we've reached the maximum limit
@@ -176,7 +176,7 @@
             $todelete = $this.closest(config.cloneThis);
             
             // get the count of all the sibling clones
-            var cloneCount = $todelete.siblings().length;
+            var cloneCount = $todelete.siblings().add($todelete).length;
             
             // trigger hook
             $.when(elem.triggerHandler('clone_before_delete', [$todelete,cloneCount]))
