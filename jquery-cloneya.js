@@ -22,7 +22,7 @@
 
         // just creating a jQuery object, just in case
         var elem = $(element);
-
+        
         // the default options
         var defaults = {
             // the maximum times, an element can be cloned
@@ -60,6 +60,10 @@
 
             //It defaultly renders number of clones
             defaultRender: false,
+            
+            // whether to preserve the initial number of clone's child clones
+            // (todo)
+            preserveChildCount: false
         };
 
         // merge the passed options object with defaults
@@ -74,6 +78,17 @@
         this.setOption = function(lateoptions) {
             $.extend(config, lateoptions || {});
         };
+        
+        // add our class
+        
+        elem.find(config.cloneThis).addClass('cloneya');
+        
+        // get the child clones' count
+        $.extend(config,{
+                childCount : elem.find(config.cloneThis).length
+        });
+        
+        
         
         //Now, what if the clone button and delete button are not contained in 
         //the clonable?
@@ -113,6 +128,13 @@
                     withDataAndEvents: config.dataClone,
                     deepWithDataAndEvents: config.deepClone
                 });
+                
+                // we want to preserve the initial child count
+                if (config.preserveChildCount !== 'false'){
+                        var $children = $newclone.find('.cloneya');
+                        var $extra = $children.slice(config.childCount,$children.length);
+                        $extra.remove();
+                }
 
                 // get the form input
                 $newclone.find('input, textarea, select').each(function() {
@@ -135,11 +157,10 @@
 
                 // get the position where the clone has to be added
                 // and add the newclone
-                if (config.clonePosition != 'after') {
+                if (config.clonePosition !== 'after') {
                     $toclone.before($newclone);
                 } else {
                     $toclone.after($newclone);
-             
                    
                 }
                 

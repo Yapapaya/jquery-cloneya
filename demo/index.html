@@ -199,7 +199,9 @@
         <script>
             $('#simple-clone').cloneya();
             
-            $('#nest-clone').cloneya();
+            $('#nest-clone').cloneya({
+                    preserveCount : true
+            });
             
             $('.inner-wrap').cloneya({
                 cloneThis: '.clone-inner',
