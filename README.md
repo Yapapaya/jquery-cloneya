@@ -192,3 +192,8 @@ Just before a clone is deleted
 **clone_after_delete** *NULL*
 
 Just after the clone is deleted
+
+### Support
+
+Please create ticket with [jsfiddle](http://jsfiddle.net/) or something similar, if you find any issues!
+
