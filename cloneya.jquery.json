@@ -22,7 +22,7 @@
 	"docs": "https://github.com/yapapaya/jquery-cloneya/",
 	"download": "https://github.com/yapapaya/jquery-cloneya/",
 	"dependencies": {
-		"jquery": ">=1.5"
+		"jquery": ">=1.7"
 	},
 	"maintainers": [
 		{
