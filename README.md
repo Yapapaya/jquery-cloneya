@@ -202,3 +202,5 @@ Just after the clone is deleted
 
 Please create ticket with [jsfiddle](http://jsfiddle.net/) or something similar, if you find any issues!
 
+Ask your question in Stackoverflow with [jquery-cloneya](http://stackoverflow.com/questions/tagged/jquery-cloneya) tag.
+
