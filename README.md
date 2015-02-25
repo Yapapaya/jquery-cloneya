@@ -21,7 +21,8 @@ CloneYa is a jQuery class useful for cloning DOM elements with their children. I
             clonePosition	: 'after',
             serializeID         : true,
             ignore		: 'label.error',
-	    defaultRender	: false
+            defaultRender	: false,
+            preserveChildCount  : false
         });
 ```
 
@@ -116,6 +117,10 @@ Ignore specific content from the clone
 **defaultRender** *false*
 
 It defaultly renders number of clones, This option accepts the numbers.
+
+**preserveChildCount** *false*
+
+Whether to preserve the initial number of clone's child clones.
 
 ## Events
 
