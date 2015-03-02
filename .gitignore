@@ -7,3 +7,4 @@ nbproject/*
 .buildpath
 .project
 .settings/
+/node_modules/*/node-modules/ 
