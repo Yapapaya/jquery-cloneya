@@ -1,0 +1,48 @@
+{
+	"name": "jquery-cloneya",
+	"title": "jQuery CloneYa",
+	"description": "jQuery plugin for cloning elements in a nested manner",
+	"keywords": [
+		"clone",
+		"form"
+	],
+	"version": "0.9.5",
+	"author": {
+		"name": "Saurabh Shukla",
+		"url": "http://github.com/yapapaya/"
+	},
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "https://github.com/yapapaya/jquery-cloneya/blob/master/LICENSE.md"
+		}
+	],
+	"bugs": "https://github.com/yapapaya/jquery-cloneya/issues",
+	"homepage": "https://github.com/yapapaya/jquery-cloneya/",
+	"docs": "https://github.com/yapapaya/jquery-cloneya/",
+	"download": "https://github.com/yapapaya/jquery-cloneya/",
+	"dependencies": {
+		"jquery": ">=1.7"
+	},
+	"contributors" : [
+		{
+			"name": "Gowri Sankar",
+			"url": "http://code-cocktail.in/"
+		},
+		{
+		"name": "Saurabh Shukla",
+		"url": "http://github.com/yapapaya/"
+		}	
+	],
+	"maintainers": [
+		{
+			"name": "Gowri Sankar",
+			"url": "http://code-cocktail.in/"
+		},
+		{
+		"name": "Saurabh Shukla",
+		"url": "http://github.com/yapapaya/"
+		}	
+	],
+	 "repository" : {"type": "git", "url": "git://github.com/yapapaya/jquery-cloneya.git"}
+}
