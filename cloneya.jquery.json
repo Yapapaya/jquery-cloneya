@@ -24,6 +24,16 @@
 	"dependencies": {
 		"jquery": ">=1.7"
 	},
+	"contributors" : [
+		{
+			"name": "Gowri Sankar",
+			"url": "http://code-cocktail.in/"
+		},
+		{
+		"name": "Saurabh Shukla",
+		"url": "http://github.com/yapapaya/"
+		}	
+	],
 	"maintainers": [
 		{
 			"name": "Gowri Sankar",
@@ -33,5 +43,6 @@
 		"name": "Saurabh Shukla",
 		"url": "http://github.com/yapapaya/"
 		}	
-	]
+	],
+	 "repository" : {"type": "git", "url": "git://github.com/yapapaya/jquery-cloneya.git"}
 }
