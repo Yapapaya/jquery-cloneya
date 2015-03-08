@@ -59,20 +59,39 @@
             cloneThis: '.toclone',
             cloneButton: '.clone',
             deleteButton: '.delete',
-            
             clonePosition: 'after',
-            
-            limit: 999, //setting it to a high number, by default
-            
+            minimum: 1,
+            // renaming limit
+            maximum: 999, //setting it to a high number, by default
+
+            //limit: 999,
+
             valueClone: false,
             dataClone: false,
             deepClone: false,
-            
             serializeID: true,
             ignore: 'label.error',
-            defaultRender: false,
+            
+            // renaming defaultRender
+            // type consistencey
+            defaultCount: 0,
+            
+            // defaultRender: false,
+            
             preserveInitialChildCount: false
         };
+        
+        /**
+         * Support deprecated parameters
+         */
+        if (typeof options !== 'undefined') {
+            if (typeof options.limit !== 'undefined' && options.limit > 0) {
+                options.maximum = options.limit;
+            }
+            if (typeof options.defaultRender !== 'undefined' && options.defaultRender > 0) {
+                options.defaultCount = options.defaultRender;
+            }
+        }
 
         /**
          * merge the passed options object with defaults
@@ -92,80 +111,85 @@
 
         /**
          * setter function for options
-         * @param {Object} lateoptions
+         * 
+         * @param {Object} lateOptions
          * @returns {undefined}
          */
-        this.setOption = function (lateoptions) {
-            $.extend(config, lateoptions || {});
+        this.setOption = function (lateOptions) {
+            $.extend(config, lateOptions || {});
         };
-        
+
         /**
          * 
          * @type @exp;elem@call;closestChild
          */
         var clones = elem.closestChild(config.cloneThis);
         
-        /**
-         * 
-         * @type @exp;clones@call;closestChild
-         */
-        var cloneButtons = clones.closestChild(config.cloneButton);
-        
-        /**
-         * 
-         * @type @exp;clones@call;closestChild
-         */
-        var deleteButtons = clones.closestChild(config.deleteButton);
-
-        // add our classes
-        elem.addClass('cloneya-wrap');
-        clones.addClass('cloneya');
-
-        // save the sibling count into data attr
-        clones.data('initialCount', clones.length);
-
-        //Now, what if the clone button and delete button are not contained in 
-        //the clonable?
-        if (cloneButtons.length) {
-            // add a click handler for the clone buttons
-            elem.on('click', config.cloneThis + '>' + config.cloneButton, function (event) {
-                event.preventDefault();
-                event.stopPropagation();
-                // this is just a wrapper for the custom clone event
-                elem.triggerHandler('clone_clone', [$(this)]);
-            });
-        }
-
-
-        // the custom clone event
-        elem.on('clone_clone', function (event, $this) {
-
+        var clone = function( event, item){
             // get the closest parent clone
             /**
              * 
              * @type @exp;$this@call;closest
              */
-            var $toclone = $this.closest(config.cloneThis);
+            var toClone = item.closest(config.cloneThis);
 
             // get the count of all the sibling clones
             /**
              * 
              * @type @exp;$toclone@call;closest@call;closestChild@pro;length
              */
-            var cloneCount = $toclone.closest(element).closestChild(config.cloneThis).length;
+            var cloneCount = toClone.closest(element).closestChild(config.cloneThis).length;
 
             // check if we've reached the maximum limit
-            if (cloneCount < config.limit) {
+            if (cloneCount < config.maximum) {
 
                 // trigger a custom event for hooking in
-                elem.triggerHandler('clone_before_clone', [$toclone]);
+                elem.triggerHandler('clone_before_clone', [toClone]);
 
-                // clone it
+                var newClone = cloneClone(toClone);
+                
+                // trigger custom event on the original element
+                elem.triggerHandler('clone_after_clone', [toClone, newClone]);
+                
+                // add to our clones object
+                clones.add(newClone);
+
+                // trigger custom event on the new clone
+                elem.triggerHandler('clone_before_append', [toClone, newClone]);
+
+                // get the position where the clone has to be added
+                // and add the newclone
+                if (config.clonePosition !== 'after') {
+                    toClone.before(newClone);
+                } else {
+                    toClone.after(newClone);
+
+                }
+
+                if (config.ignore) {
+                    newClone.find(config.ignore).remove();
+                }
+
+                // reformat the id attributes
+                redoIDs();
+
+                // trigger custom event for hooking
+                elem.triggerHandler('clone_after_append', [toClone, newClone]);
+            } else {
+                // trigger a custom event for hooking
+                elem.triggerHandler('clone_limit', config.maximum, [toClone]);
+                elem.triggerHandler('clone_maximum', config.maximum, [toClone]);
+            }
+
+        };
+        
+        var cloneClone = function(toClone){
+            // clone it
                 /**
                  * 
                  * @type @exp;$toclone@call;clone
                  */
-                var $newclone = $toclone.clone({
+                var newClone = toClone.clone({
                     withDataAndEvents: config.dataClone,
                     deepWithDataAndEvents: config.deepClone
                 });
@@ -175,30 +199,30 @@
                     // the child count only needs preservation if they are clonable.
 
                     // for each wrapper
-                    $newclone.find('.cloneya-wrap').each(function () {
+                    newClone.find('.cloneya-wrap').each(function () {
                         /**
                          * 
                          * @type @call;jquery-cloneya_L8.$@call;closestChild
                          */
-                        var $in_new_clone = $(this).closestChild('.cloneya');
+                        var inNewClone = $(this).closestChild('.cloneya');
                         /**
                          * 
-                         * @type @exp;$in_new_clone@call;data
+                         * @type @exp;inNewClone@call;data
                          */
-                        var $original_count = $in_new_clone.data('initialCount');
+                        var originalCount = inNewClone.data('initialCount');
                         /**
                          * 
-                         * @type @exp;$in_new_clone@call;slice
+                         * @type @exp;inNewClone@call;slice
                          */
-                        var $extra = $in_new_clone.slice($original_count, $in_new_clone.length);
-                        
+                        var $extra = inNewClone.slice(originalCount, inNewClone.length);
+
                         $extra.remove();
                     });
 
                 }
 
                 // get the form input
-                $newclone.find('input, textarea, select').each(function () {
+                newClone.find('input, textarea, select').each(function () {
 
                     // check if the values need to be copied, if not empty them
                     _clearForm($(this));
@@ -207,50 +231,45 @@
                     // each case is specific and I'd rather leave it to the developer
 
                     // custom event hook for index handling
-                    elem.triggerHandler('clone_form_input', [$(this), $toclone, $newclone]);
+                    elem.triggerHandler('clone_form_input', [$(this), toClone, newClone]);
                 });
+                
+                return newClone;
 
-                // trigger custom event on the original element
-                elem.triggerHandler('clone_after_clone', [$toclone, $newclone]);
+        };
+        
+        // add our classes
+        elem.addClass('cloneya-wrap');
+        clones.addClass('cloneya');
 
-                // trigger custom event on the new clone
-                elem.triggerHandler('clone_before_append', [$toclone, $newclone]);
+        // save the sibling count into data attr
+        clones.data('initialCount', clones.length);
 
-                // get the position where the clone has to be added
-                // and add the newclone
-                if (config.clonePosition !== 'after') {
-                    $toclone.before($newclone);
-                } else {
-                    $toclone.after($newclone);
-
-                }
-
-                if (config.ignore) {
-                    $newclone.find(config.ignore).remove();
-                }
-
-                // reformat the id attributes
-                redoIDs();
-
-                // trigger custom event for hooking
-                elem.triggerHandler('clone_after_append', [$toclone, $newclone]);
-            } else {
-                // trigger a custom event for hooking
-                elem.triggerHandler('clone_limit', config.limit, [$toclone]);
-            }
-
+        //Now, what if the clone button and delete button are not contained in 
+        //the clonable?
+        // add a click handler for the clone buttons
+        elem.on('click', config.cloneThis + '>' + config.cloneButton, function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            // this is just a wrapper for the custom clone event
+            elem.triggerHandler('clone_clone', [$(this)]);
         });
+        
 
-        if (deleteButtons.length) {
-            // click handler for delete button
-            clones.on('click', config.cloneThis + '>' + config.deleteButton, function (event) {
-                event.preventDefault();
-                event.stopPropagation();
-                // just a wrapper for delclone event
-                elem.triggerHandler('clone_delete', [$(this)]);
-            });
-        }
-
+        // the custom clone event
+        elem.on('clone_clone', function (event, $this) {
+            clone(event, $this);
+            
+        });
+        
+        // click handler for delete button
+        elem.on('click', config.cloneThis + '>' + config.deleteButton, function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            // just a wrapper for delclone event
+            elem.triggerHandler('clone_delete', [$(this)]);
+        });
+        
         //  the delete clone event
         elem.on('clone_delete', function (event, $this) {
 
@@ -259,17 +278,17 @@
              * 
              * @type @exp;$this@call;closest
              */
-            var $todelete = $this.closest(config.cloneThis);
+            var toDelete = $this.closest(config.cloneThis);
 
             // get the count of all the sibling clones
             /**
              * 
              * @type @exp;$todelete@call;closest@call;closestChild@pro;length
              */
-            var cloneCount = $todelete.closest(element).closestChild(config.cloneThis).length;
+            var cloneCount = toDelete.closest(element).closestChild(config.cloneThis).length;
 
             // trigger hook
-            $.when(elem.triggerHandler('clone_before_delete', [$todelete, cloneCount]))
+            $.when(elem.triggerHandler('clone_before_delete', [toDelete, cloneCount]))
                     .done(function () {
 
                         elem.triggerHandler('clone_after_delete');
@@ -278,18 +297,22 @@
 
         });
 
-        elem.on('clone_before_delete', function (event, $todelete, cloneCount) {
-
+        // this shouldn't be default behaviour. Let the dev decide whether they want to clear the inputs
+        elem.on('clone_before_delete', function (event, toDelete, cloneCount) {
             // never delete all the clones
             // at least one must remain
-            if (cloneCount > 1) {
+            if (cloneCount > config.minimum) {
 
-                $($todelete).remove();
+                $(toDelete).remove();
             }
             else {
-
-                // First clone form can't be deleted, but the values should be removed from first form              
-                $todelete.find('input, textarea, select').each(function () {
+                
+                elem.triggerHandler('clone_minimum', config.minimum, [toDelete]);
+                
+                
+                // First clone form can't be deleted, but the values should be removed from first form    
+                // is this expected behaviour? especially since we use minimum?
+                toDelete.find('input, textarea, select').each(function () {
                     _clearForm($(this));
                 });
 
@@ -387,19 +410,21 @@
                     //update label                    
                     $(this).closest(config.cloneThis).find("label[for='" + id + "']").attr('for', nId);
 
-                    var name = $(this).attr('name');
-                    // This will increment the numeric array index for cloned field names
-                    if (name) {
-                        var matches = name.match(/\[([^}]+)\]/);
+                    if (config.serializeIndex) {
+                        var name = $(this).attr('name');
+                        // This will increment the numeric array index for cloned field names
+                        if (name) {
+                            var matches = name.match(/\[([^}]+)\]/);
 
-                        if (matches && matches.length >= 1) {
+                            if (matches && matches.length >= 1) {
 
-                            var st = name;
-                            name = [].map.call(st, function (s, n) {
-                                return (!isNaN(+s) && st[n - 1] === '[' && st[n + 1] === ']') ? i : s;
-                            }).join('');
+                                var st = name;
+                                name = [].map.call(st, function (s, n) {
+                                    return (!isNaN(+s) && st[n - 1] === '[' && st[n + 1] === ']') ? i : s;
+                                }).join('');
 
-                            $(this).attr('name', name);
+                                $(this).attr('name', name);
+                            }
                         }
                     }
 
@@ -407,7 +432,7 @@
             });
 
         };
-
+        
         //onload        
         if (config.defaultRender) {
             for (i = 1; i < config.defaultRender; i++) {
@@ -418,6 +443,11 @@
     };
 
     // add the cloneya to the global object
+    /**
+     * 
+     * @param {type} options
+     * @returns {jquery-cloneya_L8.$.fn@call;each}
+     */
     $.fn.cloneya = function (options)
     {
         return this.each(function ()
@@ -435,17 +465,19 @@
             element.data('cloneya', cloneya);
         });
     };
-})(jQuery);
 
-/*
- * jquery.closestchild 0.1.1
- *
- * Author: Andrey Mikhaylov aka lolmaus
- * Email: lolmaus@gmail.com
- *
- */
-
-(function ($) {
+    /*
+     * jquery.closestchild 0.1.1
+     *
+     * Author: Andrey Mikhaylov aka lolmaus
+     * Email: lolmaus@gmail.com
+     *
+     */
+    /**
+     * 
+     * @param {type} selector
+     * @returns {$}
+     */
     $.fn.closestChild = function (selector) {
         var $children, $results;
 

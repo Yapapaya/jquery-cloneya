@@ -7,3 +7,4 @@ nbproject/*
 .buildpath
 .project
 .settings/
+.DS_Store
