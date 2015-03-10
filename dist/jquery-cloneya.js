@@ -125,14 +125,8 @@
          */
         var clones = elem.closestChild(config.cloneThis);
         
-        var clone = function( event, item){
-            // get the closest parent clone
-            /**
-             * 
-             * @type @exp;$this@call;closest
-             */
-            var toClone = item.closest(config.cloneThis);
-
+        var clone = function( event, toClone){
+            
             // get the count of all the sibling clones
             /**
              * 
@@ -251,14 +245,16 @@
         elem.on('click', config.cloneThis + '>' + config.cloneButton, function (event) {
             event.preventDefault();
             event.stopPropagation();
+            
+            var toClone = $(this).closest(config.cloneThis);
             // this is just a wrapper for the custom clone event
-            elem.triggerHandler('clone_clone', [$(this)]);
+            elem.triggerHandler('clone_clone', [toClone]);
         });
         
 
         // the custom clone event
-        elem.on('clone_clone', function (event, $this) {
-            clone(event, $this);
+        elem.on('clone_clone', function (event, toClone) {
+            clone(event, toClone);
             
         });
         
@@ -266,19 +262,14 @@
         elem.on('click', config.cloneThis + '>' + config.deleteButton, function (event) {
             event.preventDefault();
             event.stopPropagation();
+            
+            var toDelete = $(this).closest(config.cloneThis);
             // just a wrapper for delclone event
-            elem.triggerHandler('clone_delete', [$(this)]);
+            elem.triggerHandler('clone_delete', [toDelete]);
         });
         
         //  the delete clone event
-        elem.on('clone_delete', function (event, $this) {
-
-            // get the closest parent clone
-            /**
-             * 
-             * @type @exp;$this@call;closest
-             */
-            var toDelete = $this.closest(config.cloneThis);
+        elem.on('clone_delete', function (event, toDelete) {
 
             // get the count of all the sibling clones
             /**
