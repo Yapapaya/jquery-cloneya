@@ -11,7 +11,8 @@ CloneYa is a jQuery class useful for cloning DOM elements with their children. I
 ```javascript
 	
 	$clonecontainer.cloneya({
-            limit		: 999,
+            minimum		: 1,
+            maximum             : 999,
             cloneThis		: '.toclone',
             valueClone		: false,
             dataClone		: false,
@@ -21,7 +22,7 @@ CloneYa is a jQuery class useful for cloning DOM elements with their children. I
             clonePosition	: 'after',
             serializeID         : true,
             ignore		: 'label.error',
-            defaultRender	: false,
+            defaultCount	: false,
             preserveChildCount  : false
         });
 ```
