@@ -3,6 +3,14 @@
 
 CloneYa is a jQuery class useful for cloning DOM elements with their children. I wanted to be able to clone form inputs and groups of form inputs or fieldsets, or even whole forms. With time, I've hopefully made it very generic.
 
+## Bower Support
+You can install CloneYa using Bower.
+
+From the CLI, run
+```batchfile
+bower install cloneya
+```
+Learn more [about installing bower packages](http://bower.io/#getting-started)
 
 ## Usage
 
@@ -203,5 +211,5 @@ Just after the clone is deleted
 
 Please create ticket with [jsfiddle](http://jsfiddle.net/) or something similar, if you find any issues!
 
-Ask your question in Stackoverflow with [jquery-cloneya](http://stackoverflow.com/questions/tagged/jquery-cloneya) tag.
+Ask your question in Stackoverflow with [jquery-cloneya](http://stackoverflow.com/questions/tagged/jquery-cloneya) tag. Please read [how to ask](http://stackoverflow.com/help/how-to-ask) if you don't write a proper specific question in stackoverflow your question could be closed! 
 
