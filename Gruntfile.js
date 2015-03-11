@@ -11,19 +11,17 @@ module.exports = function(grunt) {
         src: 'dist/<%= pkg.name %>.js',
         dest: 'dist/<%= pkg.name %>.min.js'
       }
+    },
+    qunit: {
+        src: ['tests/jquery-cloneya.html']
     }
   });
 
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
-
-  // Default task(s).
-  grunt.registerTask('default', ['uglify']);
   
   grunt.loadNpmTasks('grunt-contrib-qunit');
-    gruntConfig.qunit = {
-        src: ['tests/jquery-cloneya.html']
-    };
+    
     grunt.registerTask('test', 'qunit:src');
 
 };

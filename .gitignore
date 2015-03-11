@@ -9,3 +9,4 @@ nbproject/*
 .settings/
 /node_modules/*/node-modules/ 
 .DS_Store
+/node_modules/
