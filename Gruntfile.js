@@ -4,9 +4,6 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     uglify: {
-      options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-      },
       build: {
         src: 'dist/<%= pkg.name %>.js',
         dest: 'dist/<%= pkg.name %>.min.js'
@@ -22,7 +19,6 @@ module.exports = function(grunt) {
   
   grunt.loadNpmTasks('grunt-contrib-qunit');
     
-    grunt.registerTask('test', 'qunit:src');
-    grunt.registerTask('travis', 'test');
-
+    grunt.registerTask('travis', 'qunit:src');
+    
 };

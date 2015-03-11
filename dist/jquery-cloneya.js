@@ -30,7 +30,7 @@
         defaultCount: 0,
         // defaultRender: false,
 
-        preserveInitialChildCount: false
+        preserveChildCount: false
     };
     /**
      * Create the class CloneYa
@@ -57,7 +57,7 @@
      * @param {Boolean} options.serializeID - Whether to serialize the IDs, automatically
      * @param {String} options.ignore - Selectors for clonables' elements that should not be cloned
      * @param {Boolean} options.defaultRender - Start with this number of clones, by default
-     * @param {Boolean} options.preserveInitialChildCount - whether to preserve the initial number of clone's child clones, works with nesting as well.
+     * @param {Boolean} options.preserveChildCount - whether to preserve the initial number of clone's child clones, works with nesting as well.
      * 
      * @returns {_L13.CloneYa}
      */
@@ -143,7 +143,7 @@
 
             // the custom clone event
             $this.$elem.on('clone.' + name, function (event, toClone) {
-
+                
                 $this._cloneAndAppend(toClone);
 
             });
@@ -180,11 +180,14 @@
 
             // this shouldn't be default behaviour. Let the dev decide whether they want to clear the inputs
             $this.$elem.on('before_delete.' + name, function (event, toDelete, cloneCount) {
+                
                 // never delete all the clones
                 // at least one must remain
                 if (cloneCount > $this.config.minimum) {
-
-                    $(toDelete).remove();
+                    
+                         $this.$elem.triggerHandler('remove.'+name, [toDelete]);
+                    
+                    
                 }
                 else {
 
@@ -198,9 +201,18 @@
                     });
 
                 }
+                
 
 
             });
+            
+            $this.$elem.on('remove.'+name, function(event,toDelete){
+                setTimeout(function() {
+                    $(toDelete).remove();
+                }, 1000);
+                
+            });
+            
 
             this._defaultRender();
 
@@ -228,7 +240,7 @@
 
         },
         _cloneAndAppend: function (toClone) {
-
+                
 
             // get the count of all the sibling clones
             /**
@@ -296,7 +308,7 @@
 
 
             // we want to preserve the initial child count
-            if ($this.config.preserveInitialChildCount !== false) {
+            if ($this.config.preserveChildCount !== false) {
                 // the child count only needs preservation if they are clonable.
 
                 // for each wrapper
@@ -332,7 +344,7 @@
                 // each case is specific and I'd rather leave it to the developer
 
                 // custom event hook for index handling
-                $this.$elem.triggerHandler('clone_form_input', [$(this), toClone, newClone]);
+                $this.$elem.triggerAll('clone_form_input form_input.' + name, [$(this), toClone, newClone]);
             });
 
             return newClone;
