@@ -1,4 +1,4 @@
-# jQuery CloneYa
+# jQuery CloneYa [![Build Status](https://travis-ci.org/yapapaya/jquery-cloneya.svg?branch=master)](https://travis-ci.org/yapapaya/jquery-cloneya)
 
 
 CloneYa is a jQuery class useful for cloning DOM elements with their children. I wanted to be able to clone form inputs and groups of form inputs or fieldsets, or even whole forms. With time, I've hopefully made it very generic.
