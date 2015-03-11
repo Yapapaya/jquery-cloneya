@@ -19,5 +19,11 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('default', ['uglify']);
+  
+  grunt.loadNpmTasks('grunt-contrib-qunit');
+    gruntConfig.qunit = {
+        src: ['tests/jquery-cloneya.html']
+    };
+    grunt.registerTask('test', 'qunit:src');
 
 };
