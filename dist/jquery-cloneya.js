@@ -71,7 +71,7 @@
         this.regex = /^(.*)(\d)+$/i;
 
 
-        this.elem = //element;
+        this.elem = element;
 
         this.$elem = $(element);
 
