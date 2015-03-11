@@ -184,6 +184,25 @@
                     <a href="#" class="clone">clone</a>
                     <a href="#" class="delete">delete</a>
                 </div>
+                
+                <div class="toclone">
+                    <p class="name"> 
+                        <input type="text" name="name[]" id="aname" /> 
+                        <label for="name">Name</label> 
+                    </p> 
+
+                    <p class="email"> 
+                        <input type="text" name="email[]" id="aemail" /> 
+                        <label for="email">E-mail</label> 
+                    </p> 
+
+                    <p class="web"> 
+                        <input type="text" name="web[]" id="aweb" /> 
+                        <label for="web">Website</label> 
+                    </p>  
+                    <a href="#" class="clone">clone</a>
+                    <a href="#" class="delete">delete</a>
+                </div>
 
                 <p class="submit"> 
                     <input type="submit" value="Save" /> 
@@ -197,7 +216,12 @@
         </script>
         <script src="../dist/jquery-cloneya.js"></script>
         <script>
+            //$('#simple-clone').cloneya();
             $('#simple-clone').cloneya();
+            console.log($('#simple-clone').cloneya('getOption'));
+            $('#simple-clone').cloneya('setOption',{
+                defaultCount: 4
+            });
             
             $('#nest-clone').cloneya({
             	preserveChildCount : true
@@ -211,8 +235,8 @@
 
             $('#limit-clone').cloneya({
                 maximum: 3,
-                minimum: 2,
-                defaultRender: 2
+                minimum: 2//,
+                //defaultRender: 2
             })
                     .on('clone_limit', function(e, limit, toclone) {
                         limitmsg = 'No more than ' + limit + ' clones for you!'
