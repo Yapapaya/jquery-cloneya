@@ -169,11 +169,7 @@
                 var cloneCount = toDelete.closest($this.elem).closestChild($this.config.cloneThis).length;
 
                 // trigger hook
-                $.when($this.$elem.triggerAll('clone_before_delete before_delete.' + name, [toDelete, cloneCount]))
-                        .done(function () {
-
-                            $this.$elem.triggerAll('clone_after_delete after_delete.' + name);
-                        });
+                $this.$elem.triggerAll('clone_before_delete before_delete.' + name, [toDelete, cloneCount]);
 
 
             });
@@ -206,12 +202,15 @@
 
             });
             
+            
             $this.$elem.on('remove.'+name, function(event,toDelete){
-                setTimeout(function() {
-                    $(toDelete).remove();
-                }, 1000);
-                
+                $.when(
+                        $(toDelete).remove()
+                )
+                    .done(function(){
+                $this.$elem.triggerAll('clone_after_delete after_delete.' + name);
             });
+        });
             
 
             this._defaultRender();
