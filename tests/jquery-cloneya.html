@@ -5,202 +5,318 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js">
         </script>
-        
+
         <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.17.1.css">
         <script src="http://code.jquery.com/qunit/qunit-1.17.1.js"></script>
         <script src="../dist/jquery-cloneya.js"></script>
         <script>
-            
-        module('Public Methods');
-        
-        test("Setter and Getter", function() {
-            var wrap = $('#simple-clone');
-            wrap.cloneya();
-            wrap.cloneya('setOption',{
-                defaultCount: 4
+
+            module('Public Methods');
+
+            test("Setter", function () {
+                var wrap = $('#simple-clone');
+                wrap.cloneya();
+                wrap.cloneya('setOption', {
+                    defaultCount: 4
+                });
+                equal(wrap.find('.toclone').length, 4, "setOption works");
             });
-            equal(wrap.find('.toclone').length,4, "Setter works" );
-        
-            var $option = wrap.cloneya('getOption');
-            
-            equal($option.defaultCount, 4, "Getter works");
-            wrap.cloneya('destroy');
-        });
-        
-        module('Simple Options');
-        test("Chainable", function() {
-            var wrap = $('#simple-clone');
-            ok(wrap.cloneya().addClass("testing"), "can be chained");
-            ok(wrap.hasClass("testing"), "class was added correctly from chaining");
-            wrap.cloneya('destroy');
-        });
-        test("Default Count", function(){
-            var wrap = $('#simple-clone');
-            wrap.cloneya({
-                'defaultCount' : 4
+
+            test("Getter", function () {
+                var wrap = $('#simple-clone');
+                wrap.cloneya({
+                    defaultCount: 4
+                });
+                var $option = wrap.cloneya('getOption');
+
+                equal($option.defaultCount, 4, "getOption works");
             });
-            equal(wrap.find('.toclone').length,4, "defaultCount Works" );
-            wrap.cloneya('destroy');
-        });
-        
-        test("Cloning and Limits", function(){
-            var wrap = $('#simple-clone');
-            wrap.cloneya({maximum: 3});
-            var config = wrap.cloneya('getOption');
-            var toClones = wrap.find(config.cloneThis);
-            var toClone = toClones.first();
-            var initCount = toClones.length;
-            wrap.triggerAll('clone.cloneya', [toClone]);
-            
-            var newCount = wrap.find(config.cloneThis).length;
-            equal(newCount, initCount+1, "simple cloning works");
-            wrap.on( 'maximum.cloneya', function() {
-                ok( true, "Maximum limit works!" );
+
+
+            module('Simple Options');
+
+            test("Chainable", function () {
+                var wrap = $('#simple-clone');
+                ok(wrap.cloneya().addClass("testing"), "can be chained");
+                ok(wrap.hasClass("testing"), "class was added correctly from chaining");
             });
-            
-            for(var i=0; i<(config.maximum-initCount); i++){
+            test("Default Count", function () {
+                var wrap = $('#simple-clone');
+                wrap.cloneya({
+                    'defaultCount': 4
+                });
+                equal(wrap.find('.toclone').length, 4, "defaultCount set and applied");
+            });
+
+            test("Cloning and Limits", function () {
+                var wrap = $('#simple-clone');
+                wrap.cloneya({maximum: 4, defaultCount: 2});
+                var config = wrap.cloneya('getOption');
+                var toClones = wrap.find(config.cloneThis);
+                var toClone = toClones.first();
+                var totalCloneCount = toClones.length;
+                var cloneCount = totalCloneCount;
+
+                wrap.on('after_append.cloneya', function () {
+                    totalCloneCount++;
+                    var newCount = wrap.find(config.cloneThis).length;
+                    equal(newCount, totalCloneCount, (totalCloneCount - cloneCount) + " new clones!" + " (Original: " + cloneCount + ", Total: " + totalCloneCount + ")");
+                });
+                wrap.on('maximum.cloneya', function () {
+                    ok(true, "Maximum limit works!");
+                });
+
+                for (var i = 0; i <= (config.maximum - cloneCount); i++) {
+                    wrap.triggerHandler('clone.cloneya', [toClone]);
+                }
+
+
+            });
+            test("Deleting and Limits", function () {
+                var wrap = $('#simple-clone');
+                wrap.cloneya({
+                    defaultCount: 4,
+                    minimum: 2
+                });
+                var config = wrap.cloneya('getOption');
+                var toClones = wrap.find(config.cloneThis);
+                var toClone = toClones.first();
+                var initCount = toClones.length;
+
+
+                wrap.on('after_delete.cloneya', function () {
+                    initCount--;
+                    var newCount = wrap.find(config.cloneThis).length;
+                    equal(newCount, initCount, "Deleted 1, " + newCount + " left!");
+
+                });
+
+                wrap.on('minimum.cloneya', function () {
+                    ok(true, "Minimum limit works!");
+                });
+
+                for (var i = 0; i <= (config.defaultCount - config.minimum); i++) {
+                    toClone = wrap.find(config.cloneThis).first();
+
+                    wrap.triggerHandler('delete.cloneya', [toClone]);
+                }
+
+            });
+
+            test("Ignore selector", function () {
+                var wrap = $('#simple-clone');
+                wrap.cloneya({
+                    ignore: '.error'
+                });
+
+
+                var config = wrap.cloneya('getOption');
+
+                var toClone = wrap.find(config.cloneThis).first();
+                toClone.append('<div class="error"></div>');
+
+
+
                 wrap.triggerHandler('clone.cloneya', [toClone]);
-            }
-            
-            
-        });
-        test("Deleting and Limits", function(){
-            var wrap = $('#simple-clone');
-            wrap.cloneya({
-                defaultCount: 4,
-                minimum: 2
+                equal(toClone.next().find('.error').length, 0, "Ignored selector absent from clone");
+
             });
-            var config = wrap.cloneya('getOption');
-            var toClones = wrap.find(config.cloneThis);
-            var toClone = toClones.first();
-            var initCount = toClones.length;
-            
-            
-            wrap.on('after_delete.cloneya', function(){
-                initCount--;
-                var newCount = wrap.find(config.cloneThis).length;
-                equal(newCount, initCount, "Deleted 1, "+newCount+" left!");
-            
+
+            test("Serialize IDs", function () {
+                var wrap = $('#simple-clone');
+                wrap.cloneya({
+                    serializeID: true
+                });
+                var config = wrap.cloneya('getOption');
+
+                var toClone = wrap.find(config.cloneThis).first();
+                wrap.triggerHandler('clone.cloneya', [toClone]);
+
+                var lastIDNum = wrap.find(config.cloneThis).length - 1;
+                var baseID = toClone.find('input').first().attr('id');
+                var lastID = wrap.find(config.cloneThis).last().find('input').first().attr('id');
+                equal(lastID, baseID + lastIDNum, "IDs get serialized");
+
             });
-            
-            wrap.on( 'minimum.cloneya', function() {
-                ok( true, "Minimum limit works!" );
+
+            module('Events');
+
+            test('Cloning', function () {
+
+                var wrap = $('#simple-clone');
+                var inputCount = 0;
+                wrap.cloneya();
+
+                wrap.on('before_clone.cloneya', function () {
+                    ok(true, "Triggered before clone!");
+                });
+
+                wrap.on('after_clone.cloneya', function () {
+                    ok(true, "Triggered after clone!");
+                });
+
+                wrap.on('before_append.cloneya', function () {
+                    ok(true, "Triggered before append!");
+                });
+
+                wrap.on('after_append.cloneya', function () {
+                    ok(true, "Triggered after append!");
+                });
+
+                var config = wrap.cloneya('getOption');
+
+                var toClone = wrap.find(config.cloneThis).first();
+
+                wrap.on('form_input.cloneya', function () {
+                    inputCount++;
+                    ok(true, "Triggered form input cloning for " + inputCount + " inputs !");
+                });
+
+
+                wrap.triggerHandler('clone.cloneya', [toClone]);
+
+
             });
-            
-            for(var i=0; i<=(config.defaultCount-config.minimum); i++){
-                toClone = wrap.find(config.cloneThis).first();
-            
+
+            test('Deleting', function () {
+
+                var wrap = $('#simple-clone');
+                wrap.cloneya({
+                    defaultCount: 2
+                });
+
+                wrap.on('before_delete.cloneya', function () {
+                    ok(true, "Triggered before delete!");
+                });
+
+                wrap.on('remove.cloneya', function () {
+                    ok(true, "Triggered remove!");
+                });
+
+                wrap.on('after_delete.cloneya', function () {
+                    ok(true, "Triggered after delete!");
+                });
+
+                var config = wrap.cloneya('getOption');
+
+                var toClone = wrap.find(config.cloneThis).first();
                 wrap.triggerHandler('delete.cloneya', [toClone]);
-            }
+
+            });
+
+            module('Nesting');
+
+            test('Cloning', function () {
+                var wrap = $('.nest-clone');
+                wrap.cloneya();
+                var config = wrap.cloneya('getOption');
+                var count = 0;
+                wrap.on('after_append.cloneya', function (event, toClone, newClone) {
+                    count++;
+                    var child = newClone.closest('.inner-wrap').length;
+                    var string = '';
+                    if (!child) {
+                        string = 'outermost';
+                        
+                    } else {
+                        var childchild = newClone.closest('.inner-inner-wrap').length;
+                        if(!childchild){
+                            string = 'nested child';
+                        }else{
+                            string = 'nested child 2nd level';
+                        }
+                        
+                    }
+                    ok(true, "Cloned " + string);
+                });
+
+                wrap.find(config.cloneButton).each(function (i, el) {
+                    var clone = $(this).closest(config.cloneThis);
+                    wrap.triggerHandler('clone.cloneya', [clone]);
+                });
+
+            });
             
-        });
-        
-        test("Ignore selector", function(){
-            var wrap = $('#simple-clone');
-            wrap.cloneya({
-                ignore: '.error'
+            test('Deleting', function () {
+                var wrap = $('.nest-clone');
+                wrap.cloneya({defaultCount: 2});
+                
+                var config = wrap.cloneya('getOption');
+                wrap.on('before_delete.cloneya', function (event, toClone) {
+                    
+                    var child = toClone.closest('.inner-wrap').length;
+                    var string = '';
+                    if (!child) {
+                        string = 'outermost';
+                        
+                    } else {
+                        var childchild = toClone.closest('.inner-inner-wrap').length;
+                        if(!childchild){
+                            string = 'nested child';
+                        }else{
+                            string = 'nested child 2nd level';
+                        }
+                        
+                    }
+                    ok(true, "Deleted " + string);
+                });
+
+                wrap.find(config.cloneButton).each(function (i, el) {
+                    var clone = $(this).closest(config.cloneThis);
+                    wrap.triggerHandler('delete.cloneya', [clone]);
+                });
+
+            });
+
+            test("Preserve parent>Child Count", function () {
+                
+                var wrap = $('.nest-clone');
+                
+                wrap.cloneya({preserveChildCount: true});
+                var config = wrap.cloneya('getOption');
+                
+                var item = $('.inner-inner-wrap').closestChild(config.cloneThis);
+                
+                var originalCount = item.length;
+                
+                $('.inner-inner-wrap').triggerHandler('clone.cloneya',[item]);
+                
+                item = $('.inner-wrap').closestChild(config.cloneThis);
+                
+                $('.inner-wrap').triggerHandler('clone.cloneya',[item]);
+                
+                item = $('.inner-wrap').closestChild(config.cloneThis).last().find('.inner-inner-wrap').closestChild(config.cloneThis);
+                
+                equal(item.length,originalCount,"Original child count preserved");
+                
+            });
+            
+            test("Preserve parent>other>DeepChild Count", function () {
+                
+                var wrap = $('.nest-clone');
+                
+                wrap.cloneya({preserveChildCount: true});
+                var config = wrap.cloneya('getOption');
+                
+                var item = $('.inner-inner-wrap').closestChild(config.cloneThis);
+                
+                var originalCount = item.length;
+                
+                $('.inner-inner-wrap').triggerHandler('clone.cloneya',[item]);
+                
+                item = $('.nest-clone.demo-wrap').closestChild(config.cloneThis);
+                
+                $('.nest-clone.demo-wrap').triggerHandler('clone.cloneya',[item]);
+                
+                item = $('.nest-clone.demo-wrap').closestChild(config.cloneThis).last().find('.inner-inner-wrap').closestChild(config.cloneThis);
+                equal(item.length,originalCount,"Original child count preserved");
+                
             });
             
             
-            var config = wrap.cloneya('getOption');
-            
-            var toClone = wrap.find(config.cloneThis).first();
-            toClone.append('<div class="error"></div>');
-            
-            
-            
-            wrap.triggerHandler('clone.cloneya', [toClone]);
-            equal(toClone.next().find('.error').length,0,"Ignore selector work");
-            
-        });
-        
-        test("Serialize IDs", function(){
-            var wrap = $('#simple-clone');
-            wrap.cloneya({
-                serializeID: true
-            });
-            var config = wrap.cloneya('getOption');
-            
-            var toClone = wrap.find(config.cloneThis).first();
-            wrap.triggerHandler('clone.cloneya', [toClone]);
-            
-            var lastIDNum = wrap.find(config.cloneThis).length -1;
-            var baseID = toClone.find('input').first().attr('id');
-            var lastID = wrap.find(config.cloneThis).last().find('input').first().attr('id');
-            equal(lastID,baseID+lastIDNum ,"IDs get serialized");
-            
-        });
-        
-        module('Events');
-        
-        test('Cloning', function(){
-            
-            var wrap = $('#simple-clone');
-            var inputCount = 0;
-            wrap.cloneya();
-            
-            wrap.on('before_clone.cloneya', function(){
-                ok( true, "Triggered before clone!" );
-            });
-            
-            wrap.on('after_clone.cloneya', function(){
-                ok( true, "Triggered after clone!" );
-            });
-            
-            wrap.on('before_append.cloneya', function(){
-                ok( true, "Triggered before append!" );
-            });
-            
-            wrap.on('after_append.cloneya', function(){
-                ok( true, "Triggered after append!" );
-            });
-            
-            var config = wrap.cloneya('getOption');
-            
-            var toClone = wrap.find(config.cloneThis).first();
-            
-            wrap.on('form_input.cloneya', function(){
-                inputCount++;
-                ok( true, "Triggered form input cloning for "+inputCount+" inputs !" );
-            });
-            
-            
-            wrap.triggerHandler('clone.cloneya', [toClone]);
-            
-            
-        });
-        
-        test('Deleting', function(){
-            
-            var wrap = $('#simple-clone');
-            wrap.cloneya({
-                defaultCount: 2
-            });
-            
-            wrap.on('before_delete.cloneya', function(){
-                ok( true, "Triggered before delete!" );
-            });
-            
-            wrap.on('after_delete.cloneya', function(){
-                ok( true, "Triggered after delete!" );
-            });
-            
-            var config = wrap.cloneya('getOption');
-            
-            var toClone = wrap.find(config.cloneThis).first();
-            wrap.triggerHandler('delete.cloneya', [toClone]);
-            
-        });
-        
-        module('Nesting');
-        
-        test("Preserve Initial Children Count", function(){
-            ok(true,"Sab theek hai");
-            
-        });
-        
+
         </script>
-            
+
     </head>
     <body>
         <div id="qunit"></div>
@@ -236,6 +352,62 @@
                 </form>
             </div>
             <!--simple clone demo end-->
+
+            <!--nested clone demo start-->
+            <div class="nest-clone demo-wrap">
+                <h2>Nested Cloning</h2>
+                <form class="form" method="post"> 
+
+                    <div class="toclone">
+                        <strong>Personal Details</strong>
+                        <p class="name"> 
+                            <input type="text" name="name[]" id="sname" /> 
+                            <label for="name">Name</label> 
+                        </p> 
+                        <div class="nest-clone inner-wrap">
+                            <div class="toclone">
+                                <strong>Contact Information</strong>
+                                <p class="email"> 
+                                    <input type="text" name="email[]" id="semail" /> 
+                                    <label for="email">E-mail</label> 
+                                </p> 
+
+                                <p class="web"> 
+                                    <input type="text" name="web[]" id="sweb" /> 
+                                    <label for="web">Website</label> 
+                                </p>
+
+                                <p class="phone"> 
+                                    <input type="text" name="phone[]" id="sphone" /> 
+                                    <label for="phone">Phone</label> 
+                                </p>  
+                                <div class="nest-clone inner-inner-wrap">
+                                    <div class="toclone">
+                                        <strong>Additional Phone</strong>
+                                        <p class="phone"> 
+                                            <input type="text" name="addphone[]" id="addphone" /> 
+                                            <label for="addphone">Phone</label> 
+                                        </p>  
+                                        <a href="#" class="clone">clone</a>
+                                        <a href="#" class="delete">delete</a>
+                                    </div>
+                                </div>
+                                <a href="#" class="clone">clone</a>
+                                <a href="#" class="delete">delete</a>
+                            </div>
+                        </div>
+                        <a href="#" class="clone">clone</a>
+                        <a href="#" class="delete">delete</a>
+                    </div>
+
+                    <p class="submit"> 
+                        <input type="submit" value="Save" /> 
+                    </p> 
+
+                </form>
+            </div>
+            <!--nested clone demo end-->
+
         </div>
     </body>
 </html>

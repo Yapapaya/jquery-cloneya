@@ -231,6 +231,7 @@
              * @type @exp;$toclone@call;closest@call;closestChild@pro;length
              */
             var cloneCount = toClone.closest(this.elem).closestChild(this.config.cloneThis).length;
+            
 
             // check if we've reached the maximum limit
             if (cloneCount < this.config.maximum) {

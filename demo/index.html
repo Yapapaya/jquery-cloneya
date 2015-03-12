@@ -11,10 +11,12 @@
                 position:relative;
                 max-width:500px;
             }
-            .inner-wrap{
+            .inner-wrap, .inner-inner-wrap{
                 margin-left:10px;
                 padding-left:10px;
                 border-left:1px #ccc solid;
+                padding-bottom:10px;
+                margin-bottom:10px;
             }
             input, textarea { 
                 padding: 9px; 
@@ -91,14 +93,14 @@
             <form class="form" method="post"> 
 
                 <div class="toclone">
-
+                    <strong>Personal Details</strong>
                     <p class="name"> 
                         <input type="text" name="name[]" id="sname" /> 
                         <label for="name">Name</label> 
                     </p> 
                     <div class="nest-clone inner-wrap">
-                        <strong>Contact Information</strong>
                         <div class="toclone">
+                            <strong>Contact Information</strong>
                             <p class="email"> 
                                 <input type="text" name="email[]" id="semail" /> 
                                 <label for="email">E-mail</label> 
@@ -110,9 +112,20 @@
                             </p>
 
                             <p class="phone"> 
-                                <input type="text" name="phone[]" id="sweb" /> 
-                                <label for="web">Phone</label> 
+                                <input type="text" name="phone[]" id="sphone" /> 
+                                <label for="phone">Phone</label> 
                             </p>  
+                            <div class="nest-clone inner-inner-wrap">
+                                <div class="toclone">
+                                    <strong>Additional Phone</strong>
+                                    <p class="phone"> 
+                                        <input type="text" name="addphone[]" id="addphone" /> 
+                                        <label for="addphone">Phone</label> 
+                                    </p>  
+                                    <a href="#" class="clone">clone</a>
+                                    <a href="#" class="delete">delete</a>
+                                </div>
+                            </div>
                             <a href="#" class="clone">clone</a>
                             <a href="#" class="delete">delete</a>
                         </div>
@@ -128,7 +141,62 @@
             </form>
         </div>
         <!--nested clone demo end-->
+        
+        <!--nested clone child preserve demo start-->
+        <div class="nest-clone-p demo-wrap">
+            <h2>Nested Cloning with preserveChildCount</h2>
+            <form class="form" method="post"> 
 
+                <div class="toclone">
+                    <strong>Personal Details</strong>
+                    <p class="name"> 
+                        <input type="text" name="name[]" id="sname" /> 
+                        <label for="name">Name</label> 
+                    </p> 
+                    <div class="nest-clone-p inner-wrap">
+                        <div class="toclone">
+                            <strong>Contact Information</strong>
+                            <p class="email"> 
+                                <input type="text" name="email[]" id="semail" /> 
+                                <label for="email">E-mail</label> 
+                            </p> 
+
+                            <p class="web"> 
+                                <input type="text" name="web[]" id="sweb" /> 
+                                <label for="web">Website</label> 
+                            </p>
+
+                            <p class="phone"> 
+                                <input type="text" name="phone[]" id="sphone" /> 
+                                <label for="phone">Phone</label> 
+                            </p>  
+                            <div class="nest-clone-p inner-inner-wrap">
+                                <div class="toclone">
+                                    <strong>Additional Phone</strong>
+                                    <p class="phone"> 
+                                        <input type="text" name="addphone[]" id="addphone" /> 
+                                        <label for="addphone">Phone</label> 
+                                    </p>  
+                                    <a href="#" class="clone">clone</a>
+                                    <a href="#" class="delete">delete</a>
+                                </div>
+                            </div>
+                            <a href="#" class="clone">clone</a>
+                            <a href="#" class="delete">delete</a>
+                        </div>
+                    </div>
+                    <a href="#" class="clone">clone</a>
+                    <a href="#" class="delete">delete</a>
+                </div>
+
+                <p class="submit"> 
+                    <input type="submit" value="Save" /> 
+                </p> 
+
+            </form>
+        </div>
+        <!--nested clone child preserve demo end-->
+        
         <!--limit clone demo start-->
         <div id="limit-clone" class="demo-wrap">
             <h2>2 clones by default, max 3, min 2</h2>
@@ -184,7 +252,7 @@
                     <a href="#" class="clone">clone</a>
                     <a href="#" class="delete">delete</a>
                 </div>
-                
+
                 <p class="submit"> 
                     <input type="submit" value="Save" /> 
                 </p> 
@@ -200,8 +268,10 @@
             //$('#simple-clone').cloneya();
             $('#simple-clone').cloneya();
 
-            $('.nest-clone').cloneya({
-            	preserveChildCount : true
+            $('.nest-clone').cloneya();
+            
+            $('.nest-clone-p').cloneya({
+                preserveChildCount: true
             });
 
             $('#limit-clone').cloneya({
@@ -209,44 +279,44 @@
                 minimum: 2,
                 defaultRender: 2
             })
-                    .on('maximum.cloneya', function(e, limit, toclone) {
+                    .on('maximum.cloneya', function (e, limit, toclone) {
                         var limitmsg = 'No more than ' + limit + ' clones for you!'
                         alert(limitmsg);
                     })
-                    .on('minimum.cloneya', function(e, limit, toclone) {
+                    .on('minimum.cloneya', function (e, limit, toclone) {
                         var limitmsg = 'No less than ' + limit + ' clones for you!'
                         alert(limitmsg);
                     });
 
             $('#animate-clone').cloneya()
-                    .on('before_clone.cloneya', function(event, toclone) {
+                    .on('before_clone.cloneya', function (event, toclone) {
                         // do something
                     })
-                    .on('after_clone.cloneya', function(event, toclone, newclone) {
+                    .on('after_clone.cloneya', function (event, toclone, newclone) {
                         // do something   
                     })
-                    .on('before_append.cloneya', function(event, toclone, newclone) {
+                    .on('before_append.cloneya', function (event, toclone, newclone) {
                         $(newclone).css('display', 'none');
-                        $(toclone).fadeOut('fast', function() {
+                        $(toclone).fadeOut('fast', function () {
                             $(this).fadeIn('fast');
                         });
                     })
-                    .on('after_append.cloneya', function(event, toclone, newclone) {
+                    .on('after_append.cloneya', function (event, toclone, newclone) {
                         $(newclone).slideToggle();
                     })
-                            .off('remove.cloneya')
-                    .on('remove.cloneya', function(event, clone) {
+                    .off('remove.cloneya')
+                    .on('remove.cloneya', function (event, clone) {
                         clone.css('background-color', 'red');
-                        
-                        $(clone).slideToggle('slow', function(){
+
+                        $(clone).slideToggle('slow', function () {
                             $(clone).remove();
                         });
-                        
+
                     })
-                            .on('after_delete.cloneya', function(){
-                                console.log('bharta');
+                    .on('after_delete.cloneya', function () {
+                        // do something
                     });
         </script>
-        
+
     </body>
 </html>
