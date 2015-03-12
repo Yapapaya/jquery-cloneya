@@ -167,26 +167,16 @@
                  * @type @exp;$todelete@call;closest@call;closestChild@pro;length
                  */
                 var cloneCount = toDelete.closest($this.elem).closestChild($this.config.cloneThis).length;
-
-                // trigger hook
-                $this.$elem.triggerAll('clone_before_delete before_delete.' + name, [toDelete, cloneCount]);
-
-
-            });
-
-            // this shouldn't be default behaviour. Let the dev decide whether they want to clear the inputs
-            $this.$elem.on('before_delete.' + name, function (event, toDelete, cloneCount) {
                 
-                // never delete all the clones
-                // at least one must remain
                 if (cloneCount > $this.config.minimum) {
-                    
-                         $this.$elem.triggerHandler('remove.'+name, [toDelete]);
-                    
-                    
-                }
-                else {
+                     // trigger hook
+                $this.$elem.triggerAll('clone_before_delete before_delete.' + name, [toDelete, cloneCount]);
+                        $this.$elem.triggerHandler('remove.'+name, [toDelete]);
+                        $this.$elem.triggerAll('clone_after_delete after_delete.' + name);
 
+}
+                else {
+                    
                     $this.$elem.triggerHandler('minimum.' + name, $this.config.minimum, [toDelete]);
 
 
@@ -197,20 +187,14 @@
                     });
 
                 }
-                
-
-
             });
+
             
             
             $this.$elem.on('remove.'+name, function(event,toDelete){
-                $.when(
-                        $(toDelete).remove()
-                )
-                    .done(function(){
-                $this.$elem.triggerAll('clone_after_delete after_delete.' + name);
+                $(toDelete).remove();
+                
             });
-        });
             
 
             this._defaultRender();

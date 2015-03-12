@@ -79,7 +79,7 @@
             wrap.on('after_delete.cloneya', function(){
                 initCount--;
                 var newCount = wrap.find(config.cloneThis).length;
-                equal(newCount, initCount, "simple delete works");
+                equal(newCount, initCount, "Deleted 1, "+newCount+" left!");
             
             });
             
@@ -87,7 +87,7 @@
                 ok( true, "Minimum limit works!" );
             });
             
-            for(var i=0; i<(config.defaultCount-config.minimum); i++){
+            for(var i=0; i<=(config.defaultCount-config.minimum); i++){
                 toClone = wrap.find(config.cloneThis).first();
             
                 wrap.triggerHandler('delete.cloneya', [toClone]);

@@ -234,10 +234,14 @@
                     .on('after_append.cloneya', function(event, toclone, newclone) {
                         $(newclone).slideToggle();
                     })
+                            .off('remove.cloneya')
                     .on('remove.cloneya', function(event, clone) {
                         clone.css('background-color', 'red');
                         
-                        $(clone).slideToggle('slow');
+                        $(clone).slideToggle('slow', function(){
+                            $(clone).remove();
+                        });
+                        
                     })
                             .on('after_delete.cloneya', function(){
                                 console.log('bharta');
