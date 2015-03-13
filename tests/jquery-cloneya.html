@@ -13,23 +13,14 @@
 
             module('Public Methods');
 
-            test("Setter", function () {
+            test("Setter & Getter", function () {
                 var wrap = $('#simple-clone');
                 wrap.cloneya();
                 wrap.cloneya('setOption', {
-                    defaultCount: 4
-                });
-                equal(wrap.find('.toclone').length, 4, "setOption works");
-            });
-
-            test("Getter", function () {
-                var wrap = $('#simple-clone');
-                wrap.cloneya({
-                    defaultCount: 4
+                    maximum: 4
                 });
                 var $option = wrap.cloneya('getOption');
-
-                equal($option.defaultCount, 4, "getOption works");
+                equal($option.maximum, 4, "setOption and getOption work");
             });
             
             test("Destroy", function () {
@@ -47,20 +38,21 @@
                 ok(wrap.cloneya().addClass("testing"), "can be chained");
                 ok(wrap.hasClass("testing"), "class was added correctly from chaining");
             });
-            test("Default Count", function () {
-                var wrap = $('#simple-clone');
-                wrap.cloneya({
-                    'defaultCount': 4
-                });
-                equal(wrap.find('.toclone').length, 4, "defaultCount set and applied");
-            });
-
+            
             test("Cloning and Limits", function () {
                 var wrap = $('#simple-clone');
-                wrap.cloneya({maximum: 4, defaultCount: 2});
+                wrap.cloneya({maximum: 4});
+                
+                
                 var config = wrap.cloneya('getOption');
                 var toClones = wrap.find(config.cloneThis);
                 var toClone = toClones.first();
+                
+                // create an extra copy
+                wrap.triggerHandler('clone.cloneya', [toClone]);
+                toClones = wrap.find(config.cloneThis);
+                toClone = toClones.first();
+                
                 var totalCloneCount = toClones.length;
                 var cloneCount = totalCloneCount;
 
@@ -81,13 +73,17 @@
             });
             test("Deleting and Limits", function () {
                 var wrap = $('#simple-clone');
-                wrap.cloneya({
-                    defaultCount: 4,
-                    minimum: 2
-                });
+                wrap.cloneya({minimum: 2});
                 var config = wrap.cloneya('getOption');
                 var toClones = wrap.find(config.cloneThis);
                 var toClone = toClones.first();
+                
+                // create 2 additional clones
+                for(var i = 0; i < 2; i++){
+                    wrap.triggerHandler('clone.cloneya', [toClone]);
+                    toClones = wrap.find(config.cloneThis);
+                    toClone = toClones.first();
+                }
                 var initCount = toClones.length;
 
 
@@ -102,7 +98,7 @@
                     ok(true, "Minimum limit works!");
                 });
 
-                for (var i = 0; i <= (config.defaultCount - config.minimum); i++) {
+                for (var i = 0; i <= (4 - config.minimum); i++) {
                     toClone = wrap.find(config.cloneThis).first();
 
                     wrap.triggerHandler('delete.cloneya', [toClone]);
@@ -188,9 +184,7 @@
             test('Deleting', function () {
 
                 var wrap = $('#simple-clone');
-                wrap.cloneya({
-                    defaultCount: 2
-                });
+                wrap.cloneya();
 
                 wrap.on('before_delete.cloneya', function () {
                     ok(true, "Triggered before delete!");
@@ -246,7 +240,7 @@
             
             test('Deleting', function () {
                 var wrap = $('.nest-clone');
-                wrap.cloneya({defaultCount: 2});
+                wrap.cloneya();
                 
                 var config = wrap.cloneya('getOption');
                 wrap.on('before_delete.cloneya', function (event, toClone) {
@@ -277,22 +271,23 @@
 
             test("Preserve parent>Child Count", function () {
                 
-                var wrap = $('.nest-clone');
+                var wrap = $('.nest-clone.demo-wrap').first();
                 
                 wrap.cloneya({preserveChildCount: true});
+                
                 var config = wrap.cloneya('getOption');
                 
-                var item = $('.inner-inner-wrap').closestChild(config.cloneThis);
+                var deepitem = wrap.find('.inner-inner-wrap').closestChild(config.cloneThis);
                 
-                var originalCount = item.length;
+                var originalCount = deepitem.length;
                 
-                $('.inner-inner-wrap').triggerHandler('clone.cloneya',[item]);
+                wrap.triggerHandler('clone.cloneya',[deepitem]);
                 
-                item = $('.inner-wrap').closestChild(config.cloneThis);
+                var item = wrap.find('.inner-wrap').closestChild(config.cloneThis);
                 
-                $('.inner-wrap').triggerHandler('clone.cloneya',[item]);
+                wrap.triggerHandler('clone.cloneya',[item]);
                 
-                item = $('.inner-wrap').closestChild(config.cloneThis).last().find('.inner-inner-wrap').closestChild(config.cloneThis);
+                var cloned = wrap.find('.inner-wrap').closestChild(config.cloneThis).last().find('.inner-inner-wrap').closestChild(config.cloneThis);
                 
                 equal(item.length,originalCount,"Original child count preserved");
                 
@@ -303,20 +298,22 @@
                 var wrap = $('.nest-clone');
                 
                 wrap.cloneya({preserveChildCount: true});
+                
                 var config = wrap.cloneya('getOption');
                 
-                var item = $('.inner-inner-wrap').closestChild(config.cloneThis);
+                var superitem = $('.nest-clone.demo-wrap').closestChild(config.cloneThis).last();
                 
-                var originalCount = item.length;
+                var deepitem = superitem.find('.inner-inner-wrap').closestChild(config.cloneThis);
                 
-                $('.inner-inner-wrap').triggerHandler('clone.cloneya',[item]);
+                var originalCount = deepitem.length;
                 
-                item = $('.nest-clone.demo-wrap').closestChild(config.cloneThis);
+                wrap.triggerHandler('clone.cloneya',[deepitem]);
                 
-                $('.nest-clone.demo-wrap').triggerHandler('clone.cloneya',[item]);
+                wrap.triggerHandler('clone.cloneya',[superitem]);
                 
-                item = $('.nest-clone.demo-wrap').closestChild(config.cloneThis).last().find('.inner-inner-wrap').closestChild(config.cloneThis);
-                equal(item.length,originalCount,"Original child count preserved");
+                var cloned = $('.nest-clone.demo-wrap').closestChild(config.cloneThis).last().find('.inner-inner-wrap').closestChild(config.cloneThis);
+                
+                equal(cloned.length,originalCount,"Original child count preserved");
                 
             });
             
@@ -351,6 +348,42 @@
                         <a href="#" class="clone">clone</a>
                         <a href="#" class="delete">delete</a>
                     </div>
+                    <div class="toclone">
+                        <p class="name"> 
+                            <input type="text" name="name[]" id="sname" /> 
+                            <label for="name">Name</label> 
+                        </p> 
+
+                        <p class="email"> 
+                            <input type="text" name="email[]" id="semail" /> 
+                            <label for="email">E-mail</label> 
+                        </p> 
+
+                        <p class="web"> 
+                            <input type="text" name="web[]" id="sweb" /> 
+                            <label for="web">Website</label> 
+                        </p>  
+                        <a href="#" class="clone">clone</a>
+                        <a href="#" class="delete">delete</a>
+                    </div>
+                    <div class="toclone">
+                        <p class="name"> 
+                            <input type="text" name="name[]" id="sname" /> 
+                            <label for="name">Name</label> 
+                        </p> 
+
+                        <p class="email"> 
+                            <input type="text" name="email[]" id="semail" /> 
+                            <label for="email">E-mail</label> 
+                        </p> 
+
+                        <p class="web"> 
+                            <input type="text" name="web[]" id="sweb" /> 
+                            <label for="web">Website</label> 
+                        </p>  
+                        <a href="#" class="clone">clone</a>
+                        <a href="#" class="delete">delete</a>
+                    </div>
 
                     <p class="submit"> 
                         <input type="submit" value="Save" /> 
@@ -365,6 +398,88 @@
                 <h2>Nested Cloning</h2>
                 <form class="form" method="post"> 
 
+                    <div class="toclone">
+                        <strong>Personal Details</strong>
+                        <p class="name"> 
+                            <input type="text" name="name[]" id="sname" /> 
+                            <label for="name">Name</label> 
+                        </p> 
+                        <div class="nest-clone inner-wrap">
+                            <div class="toclone">
+                                <strong>Contact Information</strong>
+                                <p class="email"> 
+                                    <input type="text" name="email[]" id="semail" /> 
+                                    <label for="email">E-mail</label> 
+                                </p> 
+
+                                <p class="web"> 
+                                    <input type="text" name="web[]" id="sweb" /> 
+                                    <label for="web">Website</label> 
+                                </p>
+
+                                <p class="phone"> 
+                                    <input type="text" name="phone[]" id="sphone" /> 
+                                    <label for="phone">Phone</label> 
+                                </p>  
+                                <div class="nest-clone inner-inner-wrap">
+                                    <div class="toclone">
+                                        <strong>Additional Phone</strong>
+                                        <p class="phone"> 
+                                            <input type="text" name="addphone[]" id="addphone" /> 
+                                            <label for="addphone">Phone</label> 
+                                        </p>  
+                                        <a href="#" class="clone">clone</a>
+                                        <a href="#" class="delete">delete</a>
+                                    </div>
+                                </div>
+                                <a href="#" class="clone">clone</a>
+                                <a href="#" class="delete">delete</a>
+                            </div>
+                        </div>
+                        <a href="#" class="clone">clone</a>
+                        <a href="#" class="delete">delete</a>
+                    </div>
+                    <div class="toclone">
+                        <strong>Personal Details</strong>
+                        <p class="name"> 
+                            <input type="text" name="name[]" id="sname" /> 
+                            <label for="name">Name</label> 
+                        </p> 
+                        <div class="nest-clone inner-wrap">
+                            <div class="toclone">
+                                <strong>Contact Information</strong>
+                                <p class="email"> 
+                                    <input type="text" name="email[]" id="semail" /> 
+                                    <label for="email">E-mail</label> 
+                                </p> 
+
+                                <p class="web"> 
+                                    <input type="text" name="web[]" id="sweb" /> 
+                                    <label for="web">Website</label> 
+                                </p>
+
+                                <p class="phone"> 
+                                    <input type="text" name="phone[]" id="sphone" /> 
+                                    <label for="phone">Phone</label> 
+                                </p>  
+                                <div class="nest-clone inner-inner-wrap">
+                                    <div class="toclone">
+                                        <strong>Additional Phone</strong>
+                                        <p class="phone"> 
+                                            <input type="text" name="addphone[]" id="addphone" /> 
+                                            <label for="addphone">Phone</label> 
+                                        </p>  
+                                        <a href="#" class="clone">clone</a>
+                                        <a href="#" class="delete">delete</a>
+                                    </div>
+                                </div>
+                                <a href="#" class="clone">clone</a>
+                                <a href="#" class="delete">delete</a>
+                            </div>
+                        </div>
+                        <a href="#" class="clone">clone</a>
+                        <a href="#" class="delete">delete</a>
+                    </div>
                     <div class="toclone">
                         <strong>Personal Details</strong>
                         <p class="name"> 

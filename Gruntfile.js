@@ -5,8 +5,8 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     uglify: {
       build: {
-        src: 'dist/<%= pkg.name %>.js',
-        dest: 'dist/<%= pkg.name %>.min.js'
+        src: 'dist/jquery-<%= pkg.name %>.js',
+        dest: 'dist/jquery-<%= pkg.name %>.min.js'
       }
     },
     qunit: {

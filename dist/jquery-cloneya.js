@@ -25,11 +25,7 @@
         deepClone: false,
         serializeID: true,
         ignore: 'label.error',
-        // renaming defaultRender
-        // type consistencey
-        defaultCount: 0,
-        // defaultRender: false,
-
+        
         preserveChildCount: false
     };
     /**
@@ -89,9 +85,6 @@
         if (typeof options !== 'undefined') {
             if (typeof options.limit !== 'undefined' && options.limit > 0) {
                 options.maximum = options.limit;
-            }
-            if (typeof options.defaultRender !== 'undefined' && options.defaultRender > 0) {
-                options.defaultCount = options.defaultRender;
             }
         }
 
@@ -196,9 +189,6 @@
                 
             });
             
-
-            this._defaultRender();
-
         },
         _clean: function(){
             var $this = this;
@@ -289,8 +279,6 @@
                 deepWithDataAndEvents: $this.config.deepClone
             });
 
-
-
             // we want to preserve the initial child count
             if ($this.config.preserveChildCount !== false) {
                 // the child count only needs preservation if they are clonable.
@@ -307,6 +295,7 @@
                      * @type @exp;inNewClone@call;data
                      */
                     var originalCount = inNewClone.data('initialCount');
+                    
                     /**
                      * 
                      * @type @exp;inNewClone@call;slice
@@ -446,26 +435,8 @@
                 });
             });
 
-        },
-        _defaultRender: function () {
-            var $this = this;
-
-            //onload        
-            if ($this.config.defaultCount) {
-                // get the already rendered ones by php or html
-
-                var renderedCount = $this.clones.length;
-
-                if (renderedCount < $this.config.defaultCount) {
-                    var additionalCount = $this.config.defaultCount - renderedCount;
-                    for (var i = 1; i <= additionalCount; i++) {
-                        // not triggering events
-                        $this._cloneAndAppend($this.clones.last());
-                    }
-                }
-
-            }
         }
+        
 
     };
 

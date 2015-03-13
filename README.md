@@ -52,7 +52,7 @@ Cloneya must be invoked on a wrapper with the clonable items as children. It aut
 	
 	$clonecontainer.cloneya({
             minimum		    : 1,
-            maximum          : 999,
+            maximum         : 999,
             cloneThis		: '.toclone',
             valueClone		: false,
             dataClone		: false,
@@ -60,9 +60,8 @@ Cloneya must be invoked on a wrapper with the clonable items as children. It aut
             cloneButton		: '.clone',
             deleteButton	: '.delete',
             clonePosition	: 'after',
-            serializeID     : true,
+            serializeID         : true,
             ignore		: 'label.error',
-            defaultCount	: false,
             preserveChildCount  : false
         });
 ```
