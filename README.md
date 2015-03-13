@@ -60,8 +60,8 @@ Cloneya must be invoked on a wrapper with the clonable items as children. It aut
             cloneButton		: '.clone',
             deleteButton	: '.delete',
             clonePosition	: 'after',
-            serializeID         : true,
-            ignore		: 'label.error',
+            serializeID     : true,
+            ignore	    	    : 'label.error',
             preserveChildCount  : false
         });
 ```

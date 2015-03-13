@@ -199,9 +199,27 @@
 
         <!--limit clone demo start-->
         <div id="limit-clone" class="demo-wrap">
-            <h2>2 clones by default, max 3, min 2</h2>
+            <h2>Max 3, Min 2</h2>
             <form class="form" method="post"> 
 
+                <div class="toclone">
+                    <p class="name"> 
+                        <input type="text" name="name[]" id="lname" /> 
+                        <label for="name">Name</label> 
+                    </p> 
+
+                    <p class="email"> 
+                        <input type="text" name="email[]" id="lemail" /> 
+                        <label for="email">E-mail</label> 
+                    </p> 
+
+                    <p class="web"> 
+                        <input type="text" name="web[]" id="lweb" /> 
+                        <label for="web">Website</label> 
+                    </p>  
+                    <a href="#" class="clone">clone</a>
+                    <a href="#" class="delete">delete</a>
+                </div>
                 <div class="toclone">
                     <p class="name"> 
                         <input type="text" name="name[]" id="lname" /> 
@@ -276,8 +294,7 @@
 
             $('#limit-clone').cloneya({
                 maximum: 3,
-                minimum: 2,
-                defaultRender: 2
+                minimum: 2
             })
                     .on('maximum.cloneya', function (e, limit, toclone) {
                         var limitmsg = 'No more than ' + limit + ' clones for you!'
