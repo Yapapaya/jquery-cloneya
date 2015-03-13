@@ -148,7 +148,7 @@ img {
   -ms-box-shadow: 0 0 5px #ebebeb;
 }
 
-#project-title a img {
+#project_title a img {
   width: auto;
   padding: 0;
   margin: 24px 0;
