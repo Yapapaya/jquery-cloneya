@@ -274,7 +274,7 @@
         <!--animated clone demo start-->
         <div id="animate-clone" class="demo-wrap">
             <h2>Animated with custom events</h2>
-            
+            <p>(Also see what happens to the id's)</p>
             <div class="highlight highlight-javascript"><pre>$(<span class="pl-s1"><span class="pl-pds">'</span>#animate-clone<span class="pl-pds">'</span></span>).cloneya()
         .on(<span class="pl-s1"><span class="pl-pds">'</span>before_clone.cloneya<span class="pl-pds">'</span></span>, <span class="pl-st">function</span> (<span class="pl-vpf">event</span>, <span class="pl-vpf">toclone</span>) {
             <span class="pl-c">// do something</span>
@@ -290,6 +290,7 @@
         })
         .on(<span class="pl-s1"><span class="pl-pds">'</span>after_append.cloneya<span class="pl-pds">'</span></span>, <span class="pl-st">function</span> (<span class="pl-vpf">event</span>, <span class="pl-vpf">toclone</span>, <span class="pl-vpf">newclone</span>) {
             $(newclone).slideToggle();
+            <span class="pl-en">console</span><span class="pl-s3">.log</span>(<span class="pl-s1"><span class="pl-pds">'</span>finished cloning <span class="pl-pds">'</span></span> <span class="pl-k">+</span> toclone.attr(<span class="pl-s1"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>) <span class="pl-k">+</span> <span class="pl-s1"><span class="pl-pds">'</span> to <span class="pl-pds">'</span></span> <span class="pl-k">+</span> newclone.attr(<span class="pl-s1"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>));
         })
         .off(<span class="pl-s1"><span class="pl-pds">'</span>remove.cloneya<span class="pl-pds">'</span></span>)
         .on(<span class="pl-s1"><span class="pl-pds">'</span>remove.cloneya<span class="pl-pds">'</span></span>, <span class="pl-st">function</span> (<span class="pl-vpf">event</span>, <span class="pl-vpf">clone</span>) {
@@ -374,6 +375,7 @@
                     })
                     .on('after_append.cloneya', function (event, toclone, newclone) {
                         $(newclone).slideToggle();
+                        console.log('finished cloning ' + toclone.attr('id') + ' to ' + newclone.attr('id'));
                     })
                     .off('remove.cloneya')
                     .on('remove.cloneya', function (event, clone) {
