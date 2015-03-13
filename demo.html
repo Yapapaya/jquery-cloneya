@@ -78,9 +78,7 @@
             <!--simple clone demo start-->
         <div id="simple-clone" class="demo-wrap">
             <h2>Simple Cloning</h2>
-            <pre>
-            $('#simple-clone').cloneya();
-            </pre>
+            <pre>$('#simple-clone').cloneya();</pre>
             <form class="form" method="post"> 
 
                 <div class="toclone">
@@ -113,9 +111,7 @@
         <!--nested clone demo start-->
         <div class="nest-clone demo-wrap">
             <h2>Nested Cloning</h2>
-            <pre>
-                $('.nest-clone').cloneya();
-            </pre>
+            <pre>$('.nest-clone').cloneya();</pre>
             <form class="form" method="post"> 
 
                 <div class="toclone">
@@ -172,11 +168,9 @@
         <div class="nest-clone-p demo-wrap">
             <h2>Nested Cloning with preserveChildCount</h2>
             
-            <pre>
-                $('.nest-clone-p').cloneya({
+            <pre>$('.nest-clone-p').cloneya({
                     preserveChildCount: true
-                });
-            </pre>
+                });</pre>
             <form class="form" method="post"> 
 
                 <div class="toclone">
@@ -232,8 +226,7 @@
         <!--limit clone demo start-->
         <div id="limit-clone" class="demo-wrap">
             <h2>2 clones by default, max 3, min 2</h2>
-            <pre>
-                $('#limit-clone').cloneya({
+            <pre>$('#limit-clone').cloneya({
                     maximum: 3,
                     minimum: 2,
                     defaultRender: 2
@@ -245,8 +238,7 @@
                     .on('minimum.cloneya', function (e, limit, toclone) {
                         var limitmsg = 'No less than ' + limit + ' clones for you!'
                         alert(limitmsg);
-                    });
-            </pre>
+                    });</pre>
             <form class="form" method="post"> 
 
                 <div class="toclone">
@@ -280,8 +272,7 @@
         <div id="animate-clone" class="demo-wrap">
             <h2>Animated with custom events</h2>
             
-            <pre>
-                $('#animate-clone').cloneya()
+            <pre>$('#animate-clone').cloneya()
                     .on('before_clone.cloneya', function (event, toclone) {
                         // do something
                     })
@@ -306,8 +297,7 @@
                     })
                     .on('after_delete.cloneya', function () {
                         console.log('deleted');
-                    });
-            </pre>
+                    });</pre>
             <form class="form" method="post"> 
 
                 <div class="toclone">
