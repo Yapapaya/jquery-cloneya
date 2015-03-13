@@ -46,7 +46,7 @@ CloneYa must be invoked on a wrapper with the clonable items as children. It aut
 
 ## Usage
 
-[View a Demo](http://yapapaya.github.io/jquery-cloneya/demo.html "View a Demo")
+[View demo with examples](http://yapapaya.github.io/jquery-cloneya/demo.html "View a Demo")
 
 ```javascript
 	
