@@ -141,7 +141,7 @@
             </form>
         </div>
         <!--nested clone demo end-->
-        
+
         <!--nested clone child preserve demo start-->
         <div class="nest-clone-p demo-wrap">
             <h2>Nested Cloning with preserveChildCount</h2>
@@ -196,7 +196,7 @@
             </form>
         </div>
         <!--nested clone child preserve demo end-->
-        
+
         <!--limit clone demo start-->
         <div id="limit-clone" class="demo-wrap">
             <h2>2 clones by default, max 3, min 2</h2>
@@ -232,9 +232,10 @@
         <!--animated clone demo start-->
         <div id="animate-clone" class="demo-wrap">
             <h2>Animated with custom events</h2>
+            <p>(Also see what happens to the id's)</p>
             <form class="form" method="post"> 
 
-                <div class="toclone">
+                <div class="toclone" id="anim-clone">
                     <p class="name"> 
                         <input type="text" name="name[]" id="aname" /> 
                         <label for="name">Name</label> 
@@ -265,11 +266,10 @@
         </script>
         <script src="../dist/jquery-cloneya.js"></script>
         <script>
-            //$('#simple-clone').cloneya();
             $('#simple-clone').cloneya();
 
             $('.nest-clone').cloneya();
-            
+
             $('.nest-clone-p').cloneya({
                 preserveChildCount: true
             });
@@ -303,6 +303,7 @@
                     })
                     .on('after_append.cloneya', function (event, toclone, newclone) {
                         $(newclone).slideToggle();
+                        console.log('finished cloning ' + toclone.attr('id') + ' to ' + newclone.attr('id'));
                     })
                     .off('remove.cloneya')
                     .on('remove.cloneya', function (event, clone) {
@@ -314,9 +315,12 @@
 
                     })
                     .on('after_delete.cloneya', function () {
-                        // do something
+                        console.log('deleted');
                     });
         </script>
+
+
+
 
     </body>
 </html>
