@@ -1,5 +1,5 @@
 {
-    "name": "jquery-cloneya",
+    "name": "cloneya",
     "title": "jQuery CloneYa",
     "version": "1.0.0",
     "description": "CloneYa is a jQuery class useful for cloning DOM elements with their children",
