@@ -31,6 +31,13 @@
 
                 equal($option.defaultCount, 4, "getOption works");
             });
+            
+            test("Destroy", function () {
+                var wrap = $('#simple-clone');
+                wrap.cloneya();
+                wrap.cloneya('destroy');
+                equal(typeof(wrap.data('cloneya')),'undefined', "Destroy works");
+            });
 
 
             module('Simple Options');
