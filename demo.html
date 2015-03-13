@@ -78,7 +78,8 @@
             <!--simple clone demo start-->
         <div id="simple-clone" class="demo-wrap">
             <h2>Simple Cloning</h2>
-            <pre>$('#simple-clone').cloneya();</pre>
+            <div class="highlight highlight-javascript"><pre>$(<span class="pl-s1"><span class="pl-pds">'</span>#simple-clone<span class="pl-pds">'</span></span>).cloneya();</pre></div>
+
             <form class="form" method="post"> 
 
                 <div class="toclone">
@@ -111,7 +112,7 @@
         <!--nested clone demo start-->
         <div class="nest-clone demo-wrap">
             <h2>Nested Cloning</h2>
-            <pre>$('.nest-clone').cloneya();</pre>
+            <div class="highlight highlight-javascript"><pre>$(<span class="pl-s1"><span class="pl-pds">'</span>.nest-clone<span class="pl-pds">'</span></span>).cloneya();</pre></div>
             <form class="form" method="post"> 
 
                 <div class="toclone">
@@ -168,11 +169,10 @@
         <div class="nest-clone-p demo-wrap">
             <h2>Nested Cloning with preserveChildCount</h2>
             
-<pre>
-$('.nest-clone-p').cloneya({
-    preserveChildCount: true
-});
-</pre>
+
+            <div class="highlight highlight-javascript"><pre>$(<span class="pl-s1"><span class="pl-pds">'</span>.nest-clone-p<span class="pl-pds">'</span></span>).cloneya({
+    preserveChildCount<span class="pl-k">:</span> <span class="pl-c1">true</span>
+});</pre></div>
             <form class="form" method="post"> 
 
                 <div class="toclone">
@@ -228,21 +228,20 @@ $('.nest-clone-p').cloneya({
         <!--limit clone demo start-->
         <div id="limit-clone" class="demo-wrap">
             <h2>2 clones by default, max 3, min 2</h2>
-<pre>
-$('#limit-clone').cloneya({
-    maximum: 3,
-    minimum: 2,
-    defaultRender: 2
+            <div class="highlight highlight-javascript"><pre>$(<span class="pl-s1"><span class="pl-pds">'</span>#limit-clone<span class="pl-pds">'</span></span>).cloneya({
+    maximum<span class="pl-k">:</span> <span class="pl-c1">3</span>,
+    minimum<span class="pl-k">:</span> <span class="pl-c1">2</span>,
+    defaultRender<span class="pl-k">:</span> <span class="pl-c1">2</span>
 })
-    .on('maximum.cloneya', function (e, limit, toclone) {
-        var limitmsg = 'No more than ' + limit + ' clones for you!'
-        alert(limitmsg);
-    })
-    .on('minimum.cloneya', function (e, limit, toclone) {
-        var limitmsg = 'No less than ' + limit + ' clones for you!'
-        alert(limitmsg);
-    });
-</pre>
+        .on(<span class="pl-s1"><span class="pl-pds">'</span>maximum.cloneya<span class="pl-pds">'</span></span>, <span class="pl-st">function</span> (<span class="pl-vpf">e</span>, <span class="pl-vpf">limit</span>, <span class="pl-vpf">toclone</span>) {
+            <span class="pl-s">var</span> limitmsg <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">'</span>No more than <span class="pl-pds">'</span></span> <span class="pl-k">+</span> limit <span class="pl-k">+</span> <span class="pl-s1"><span class="pl-pds">'</span> clones for you!<span class="pl-pds">'</span></span>
+            <span class="pl-s3">alert</span>(limitmsg);
+        })
+        .on(<span class="pl-s1"><span class="pl-pds">'</span>minimum.cloneya<span class="pl-pds">'</span></span>, <span class="pl-st">function</span> (<span class="pl-vpf">e</span>, <span class="pl-vpf">limit</span>, <span class="pl-vpf">toclone</span>) {
+            <span class="pl-s">var</span> limitmsg <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">'</span>No less than <span class="pl-pds">'</span></span> <span class="pl-k">+</span> limit <span class="pl-k">+</span> <span class="pl-s1"><span class="pl-pds">'</span> clones for you!<span class="pl-pds">'</span></span>
+            <span class="pl-s3">alert</span>(limitmsg);
+        });</pre></div>
+
             <form class="form" method="post"> 
 
                 <div class="toclone">
@@ -276,34 +275,34 @@ $('#limit-clone').cloneya({
         <div id="animate-clone" class="demo-wrap">
             <h2>Animated with custom events</h2>
             
-<pre>
-$('#animate-clone').cloneya()
-    .on('before_clone.cloneya', function (event, toclone) {
-        // do something
-    })
-    .on('after_clone.cloneya', function (event, toclone, newclone) {
-        // do something   
-    })
-    .on('before_append.cloneya', function (event, toclone, newclone) {
-        $(newclone).css('display', 'none');
-        $(toclone).fadeOut('fast', function () {
-            $(this).fadeIn('fast');
-        });
-    })
-    .on('after_append.cloneya', function (event, toclone, newclone) {
-        $(newclone).slideToggle();
-    })
-    .off('remove.cloneya')
-    .on('remove.cloneya', function (event, clone) {
-        clone.css('background-color', 'red');
-        $(clone).slideToggle('slow', function () {
-            $(clone).remove();
-        });
-    })
-    .on('after_delete.cloneya', function () {
-        console.log('deleted');
-    });
-</pre>
+            <div class="highlight highlight-javascript"><pre>$(<span class="pl-s1"><span class="pl-pds">'</span>#animate-clone<span class="pl-pds">'</span></span>).cloneya()
+        .on(<span class="pl-s1"><span class="pl-pds">'</span>before_clone.cloneya<span class="pl-pds">'</span></span>, <span class="pl-st">function</span> (<span class="pl-vpf">event</span>, <span class="pl-vpf">toclone</span>) {
+            <span class="pl-c">// do something</span>
+        })
+        .on(<span class="pl-s1"><span class="pl-pds">'</span>after_clone.cloneya<span class="pl-pds">'</span></span>, <span class="pl-st">function</span> (<span class="pl-vpf">event</span>, <span class="pl-vpf">toclone</span>, <span class="pl-vpf">newclone</span>) {
+            <span class="pl-c">// do something   </span>
+        })
+        .on(<span class="pl-s1"><span class="pl-pds">'</span>before_append.cloneya<span class="pl-pds">'</span></span>, <span class="pl-st">function</span> (<span class="pl-vpf">event</span>, <span class="pl-vpf">toclone</span>, <span class="pl-vpf">newclone</span>) {
+            $(newclone).css(<span class="pl-s1"><span class="pl-pds">'</span>display<span class="pl-pds">'</span></span>, <span class="pl-s1"><span class="pl-pds">'</span>none<span class="pl-pds">'</span></span>);
+            $(toclone).fadeOut(<span class="pl-s1"><span class="pl-pds">'</span>fast<span class="pl-pds">'</span></span>, <span class="pl-st">function</span> () {
+                $(<span class="pl-v">this</span>).fadeIn(<span class="pl-s1"><span class="pl-pds">'</span>fast<span class="pl-pds">'</span></span>);
+            });
+        })
+        .on(<span class="pl-s1"><span class="pl-pds">'</span>after_append.cloneya<span class="pl-pds">'</span></span>, <span class="pl-st">function</span> (<span class="pl-vpf">event</span>, <span class="pl-vpf">toclone</span>, <span class="pl-vpf">newclone</span>) {
+            $(newclone).slideToggle();
+        })
+        .off(<span class="pl-s1"><span class="pl-pds">'</span>remove.cloneya<span class="pl-pds">'</span></span>)
+        .on(<span class="pl-s1"><span class="pl-pds">'</span>remove.cloneya<span class="pl-pds">'</span></span>, <span class="pl-st">function</span> (<span class="pl-vpf">event</span>, <span class="pl-vpf">clone</span>) {
+            clone.css(<span class="pl-s1"><span class="pl-pds">'</span>background-color<span class="pl-pds">'</span></span>, <span class="pl-s1"><span class="pl-pds">'</span>red<span class="pl-pds">'</span></span>);
+
+            $(clone).slideToggle(<span class="pl-s1"><span class="pl-pds">'</span>slow<span class="pl-pds">'</span></span>, <span class="pl-st">function</span> () {
+                $(clone).<span class="pl-s3">remove</span>();
+            });
+
+        })
+        .on(<span class="pl-s1"><span class="pl-pds">'</span>after_delete.cloneya<span class="pl-pds">'</span></span>, <span class="pl-st">function</span> () {
+            <span class="pl-en">console</span><span class="pl-s3">.log</span>(<span class="pl-s1"><span class="pl-pds">'</span>deleted<span class="pl-pds">'</span></span>);
+        });</pre></div>
             <form class="form" method="post"> 
 
                 <div class="toclone">
