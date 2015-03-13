@@ -148,6 +148,19 @@ img {
   -ms-box-shadow: 0 0 5px #ebebeb;
 }
 
+#project-title a img {
+  width: auto;
+  padding: 0;
+  margin: 24px 0;
+  border: none;
+
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -o-box-shadow: none;
+  -ms-box-shadow: none;
+}
+
 p img {
   display: inline;
   margin: 0;
