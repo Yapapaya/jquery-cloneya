@@ -18,7 +18,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   
   grunt.loadNpmTasks('grunt-contrib-qunit');
+  
+  grunt.registerTask('travis', 'qunit:src');
+  
+  
+  grunt.registerTask('default', ['uglify', 'travis']);
     
-    grunt.registerTask('travis', 'qunit:src');
     
 };

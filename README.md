@@ -59,11 +59,30 @@ Learn more [about installing bower packages](http://bower.io/#getting-started)
 
 The detailed documentation has been moved over at the [Wiki](https://github.com/yapapaya/jquery-cloneya/wiki).
 
-### Support
+## Support
 
  * If you can provide some **technical** insight into the issue and know what a bug is and what an enhancement is, please [create an issue](https://github.com/yapapaya/jquery-cloneya/issues/new) accordingly.
 
  * Please show us *your* complete code with [jsfiddle](http://jsfiddle.net/) or something similar, if you want us to be able to help you!
 
  * If you prefer Stackoverflow, tag your question with [jquery-cloneya](http://stackoverflow.com/questions/tagged/jquery-cloneya) tag. (Please read [how to ask](http://stackoverflow.com/help/how-to-ask). Your question could be closed, if not asked properly!) 
+
+## Contributions
+
+ * Please do not send pull requests to the `stable` branch.
+
+ * Please create a new ticket before setting out to add new features or enhancements, so that we may discuss it. Any pull requests without such discussions may not be accepted.
+
+ * If fixing a bug, create a new ticket describing the bug and refer the ticket number in the commit message.
+
+ * Please run all the unit tests by running grunt before committing and sending pull requests.
+
+ * If adding or modifying a feature, be sure to update:
+
+  1. the appropriate [QUnit](http://qunitjs.com/) unit tests in *tests/jquery-cloneya.html*.
+  1. the appropriate demo in *demo/index.html*.
+  1. the [Wiki](https://github.com/yapapaya/jquery-cloneya/wiki)
+  1. the examples in the `gh-pages` branch that shows up on [the pages here](http://yapapaya.github.io/jquery-cloneya/)
+
+ * If for some reason, you can't do 3 and 4, let us know by creating a new ticket. If you don't, the pull request won't be accepted (sorry!). 1 and 2 are absolute must.
 
