@@ -1,12 +1,12 @@
-# jQuery CloneYa [![Build Status](https://travis-ci.org/yapapaya/jquery-cloneya.svg?branch=master)](https://travis-ci.org/yapapaya/jquery-cloneya)
+# jQuery Cloneya [![Build Status](https://travis-ci.org/yapapaya/jquery-cloneya.svg?branch=master)](https://travis-ci.org/yapapaya/jquery-cloneya)
 
-CloneYa is a jQuery class useful for cloning DOM elements with their children. I wanted to be able to clone form inputs and groups of form inputs or fieldsets, or even whole forms. With time, I've hopefully made it very generic.
+Cloneya is a jQuery class useful for cloning DOM elements with their children. I wanted to be able to clone form inputs and groups of form inputs or fieldsets, or even whole forms. With time, I've hopefully made it very generic.
 
 ## Installation
 
 ### Bower
 
-To install CloneYa using Bower, on the command line, run
+To install Cloneya using Bower, on the command line, run
 
 ```batchfile
 bower install cloneya
@@ -18,7 +18,7 @@ Learn more [about installing bower packages](http://bower.io/#getting-started)
 
 (Coming soon, package not published yet)
 
-To install CloneYa using npm, on the command line, run
+To install Cloneya using npm, on the command line, run
 
 ```batchfile
 npm install cloneya
@@ -27,7 +27,7 @@ npm install cloneya
 ## Requirements
 
 
-CloneYa must be invoked on a wrapper with the clonable items as children. It automatically recognizes this markup, by default (except the *clone-wrapper*) :
+Cloneya must be invoked on a wrapper with the clonable items as children. It automatically recognizes this markup, by default (except the *clone-wrapper*) :
 
 
 ```html
