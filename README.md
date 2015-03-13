@@ -16,8 +16,6 @@ Learn more [about installing bower packages](http://bower.io/#getting-started)
 
 ### NPM
 
-(Coming soon, package not published yet)
-
 To install Cloneya using npm, on the command line, run
 
 ```batchfile
