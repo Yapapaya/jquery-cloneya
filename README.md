@@ -44,6 +44,7 @@ $('#animate-clone').cloneya()
         })
         .on('after_append.cloneya', function (event, toclone, newclone) {
             $(newclone).slideToggle();
+            console.log('finished cloning ' + toclone.attr('id') + ' to ' + newclone.attr('id'));
         })
         .off('remove.cloneya')
         .on('remove.cloneya', function (event, clone) {
