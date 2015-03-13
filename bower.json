@@ -1,29 +1,31 @@
 {
-	"name": "jquery-cloneya",
-	"description": "jQuery plugin for cloning elements in a nested manner",
-	"main": "dist/jquery-cloneya.js",
-	"keywords": [
-		"clone",
-		"form"
-	],
-	"license": [
-		{
-			"type": "MIT",
-			"url": "https://github.com/yapapaya/jquery-cloneya/blob/master/LICENSE.md"
-		}
-	],
-	"authors": [
-		{
-			"name": "Saurabh Shukla",
-			"homepage": "https://github.com/yapapaya/"
-		}
-	],
-	"homepage": "https://yapapaya.github.io/jquery-cloneya/",
-	"repository": {
-  		"type": "git",
-  		"url": "git://github.com/yapapaya/jquery-cloneya.git"
-	},
-	"dependencies": {
-		"jquery": ">=1.7"
-	}
+    "name": "jquery-cloneya",
+    "description": "CloneYa is a jQuery class useful for cloning DOM elements with their children",
+    "main": "dist/jquery-cloneya.js",
+    "keywords": [
+        "jquery-plugin",
+        "ecosystem:jquery",
+        "clone",
+        "form"
+    ],
+    "license": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/yapapaya/jquery-cloneya/blob/master/LICENSE.md"
+        }
+    ],
+    "authors": [
+        {
+            "name": "Saurabh Shukla",
+            "homepage": "https://github.com/yapapaya/"
+        }
+    ],
+    "homepage": "https://yapapaya.github.io/jquery-cloneya/",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/yapapaya/jquery-cloneya.git"
+    },
+    "dependencies": {
+        "jquery": "^2.1.3"
+    }
 }
