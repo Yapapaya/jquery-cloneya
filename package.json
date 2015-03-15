@@ -1,50 +1,51 @@
 {
-    "name": "cloneya",
-    "title": "jQuery CloneYa",
-    "version": "1.0.0",
-    "description": "CloneYa is a jQuery class useful for cloning DOM elements with their children",
-    "main": "dist/jquery-cloneya.js",
-    "directories": {
-        "lib": "dist",
-        "example": "demo",
-        "test": "tests"
-    },
-    "dependencies": {
-        "jquery": "^2.1.3"
-    },
-    "devDependencies": {
-        "grunt": "^0.4.5",
-        "grunt-contrib-uglify": "^0.8.0",
-        "grunt-contrib-qunit": "^0.5.2"
-    },
-    "scripts": {
-        "test": "grunt travis --verbose"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/yapapaya/jquery-cloneya.git"
-    },
-    "keywords": [
-        "jquery-plugin",
-        "ecosystem:jquery",
-        "clone",
-        "form"
-    ],
-    "author": {
-        "name":"Saurabh Shukla",
-        "email": "<saurabh@yapapaya.com>",
-        "url": "http://github.com/yapapaya/"
-    },
-    "contributors": [
-        {
-            "name": "Gowri Sankar",
-            "email": "chokeen@gmail.com",
-            "url": "http://code-cocktail.in/"
-        }
-    ],
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/yapapaya/jquery-cloneya/issues"
-    },
-    "homepage": "https://github.com/yapapaya/jquery-cloneya"
+  "name": "cloneya",
+  "title": "jQuery CloneYa",
+  "version": "1.0.0",
+  "description": "CloneYa is a jQuery class useful for cloning DOM elements with their children",
+  "main": "dist/jquery-cloneya.js",
+  "directories": {
+    "lib": "dist",
+    "example": "demo",
+    "test": "tests"
+  },
+  "dependencies": {
+    "jquery": "^2.1.3"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.11.0",
+    "grunt-contrib-qunit": "^0.5.2",
+    "grunt-contrib-uglify": "^0.8.0"
+  },
+  "scripts": {
+    "test": "grunt travis --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yapapaya/jquery-cloneya.git"
+  },
+  "keywords": [
+    "jquery-plugin",
+    "ecosystem:jquery",
+    "clone",
+    "form"
+  ],
+  "author": {
+    "name": "Saurabh Shukla",
+    "email": "<saurabh@yapapaya.com>",
+    "url": "http://github.com/yapapaya/"
+  },
+  "contributors": [
+    {
+      "name": "Gowri Sankar",
+      "email": "chokeen@gmail.com",
+      "url": "http://code-cocktail.in/"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yapapaya/jquery-cloneya/issues"
+  },
+  "homepage": "https://github.com/yapapaya/jquery-cloneya"
 }

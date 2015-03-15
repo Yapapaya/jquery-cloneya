@@ -25,7 +25,6 @@
         deepClone: false,
         serializeID: true,
         ignore: 'label.error',
-        
         preserveChildCount: false
     };
     /**
@@ -57,8 +56,7 @@
      * 
      * @returns {_L13.CloneYa}
      */
-    function CloneYa(element, options)
-    {
+    function CloneYa(element, options) {
         /**
          * regex for recalculating the ids
          * 
@@ -105,7 +103,6 @@
         this.init();
 
     }
-    ;
 
     CloneYa.prototype = {
         init: function () {
@@ -136,7 +133,7 @@
 
             // the custom clone event
             $this.$elem.on('clone.' + name, function (event, toClone) {
-                
+
                 $this._cloneAndAppend(toClone);
 
             });
@@ -160,16 +157,16 @@
                  * @type @exp;$todelete@call;closest@call;closestChild@pro;length
                  */
                 var cloneCount = toDelete.closest($this.elem).closestChild($this.config.cloneThis).length;
-                
-                if (cloneCount > $this.config.minimum) {
-                     // trigger hook
-                $this.$elem.triggerAll('clone_before_delete before_delete.' + name, [toDelete, cloneCount]);
-                        $this.$elem.triggerHandler('remove.'+name, [toDelete]);
-                        $this.$elem.triggerAll('clone_after_delete after_delete.' + name);
 
-}
+                if (cloneCount > $this.config.minimum) {
+                    // trigger hook
+                    $this.$elem.triggerAll('clone_before_delete before_delete.' + name, [toDelete, cloneCount]);
+                    $this.$elem.triggerHandler('remove.' + name, [toDelete]);
+                    $this.$elem.triggerAll('clone_after_delete after_delete.' + name);
+
+                }
                 else {
-                    
+
                     $this.$elem.triggerHandler('minimum.' + name, $this.config.minimum, [toDelete]);
 
 
@@ -182,22 +179,22 @@
                 }
             });
 
-            
-            
-            $this.$elem.on('remove.'+name, function(event,toDelete){
+
+
+            $this.$elem.on('remove.' + name, function (event, toDelete) {
                 $(toDelete).remove();
-                
+
             });
-            
+
         },
-        _clean: function(){
+        _clean: function () {
             var $this = this;
             $this.$elem.removeClass(name + '-wrap');
             $this.clones.removeClass(name);
             $this.$elem.off('click.' + name, $this.config.cloneThis + '>' + $this.config.cloneButton);
             $this.$elem.off('click.' + name, $this.config.cloneThis + '>' + $this.config.deleteButton);
             $this.$elem.off('clone_clone clone_delete clone_before_delete clone.' + name + ' delete.' + name + ' before_delete.' + name);
-            
+
         },
         destroy: function () {
             this._clean();
@@ -213,7 +210,7 @@
 
         },
         _cloneAndAppend: function (toClone) {
-                
+
 
             // get the count of all the sibling clones
             /**
@@ -221,7 +218,7 @@
              * @type @exp;$toclone@call;closest@call;closestChild@pro;length
              */
             var cloneCount = toClone.closest(this.elem).closestChild(this.config.cloneThis).length;
-            
+
 
             // check if we've reached the maximum limit
             if (cloneCount < this.config.maximum) {
@@ -295,7 +292,7 @@
                      * @type @exp;inNewClone@call;data
                      */
                     var originalCount = inNewClone.data('initialCount');
-                    
+
                     /**
                      * 
                      * @type @exp;inNewClone@call;slice
@@ -436,7 +433,7 @@
             });
 
         }
-        
+
 
     };
 
@@ -500,20 +497,22 @@
 
         $children = this.children();
 
-        if ($children.length === 0)
+        if ($children.length === 0) {
             return $();
+        }
 
         $results = $children.filter(selector);
 
-        if ($results.length > 0)
+        if ($results.length > 0) {
             return $results;
-        else
+        } else {
             return $children.closestChild(selector);
+        }
     };
 
     /*
      * TriggerAll, modified from stackoverflow
-     * http://stackoverflow.com/questions/11850625/jquery-trigger-multiple-events
+     * http://stackoverflow.com/questions/11850625/jquery-trigger-multiple-events 
      */
     $.fn.extend({
         triggerAll: function (events, params) {
