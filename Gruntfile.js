@@ -38,12 +38,6 @@ module.exports = function (grunt) {
         watch: {
             files: ['<%= jshint.files %>'],
             tasks: ['jshint']
-        },
-        jscs: {
-            src: "dist/jquery-<%= pkg.name %>.js",
-            options: {
-                "preset": "jquery"
-            }
         }
     });
 
@@ -54,7 +48,6 @@ module.exports = function (grunt) {
     // Load the plugin that provides the "uglify" task.
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    grunt.loadNpmTasks("grunt-jscs");
     grunt.registerTask('travis', 'qunit:src');
 
 
