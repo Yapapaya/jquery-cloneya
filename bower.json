@@ -25,6 +25,10 @@
         "type": "git",
         "url": "git://github.com/yapapaya/jquery-cloneya.git"
     },
+    "ignore": [
+        "node_modules",
+        "bower_components"
+    ],
     "dependencies": {
         "jquery": "^2.1.3"
     }
