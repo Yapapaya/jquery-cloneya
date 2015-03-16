@@ -1,6 +1,7 @@
 # jQuery Cloneya 
 
-[![Build Status](https://travis-ci.org/yapapaya/jquery-cloneya.svg?branch=stable)](https://travis-ci.org/yapapaya/jquery-cloneya)
+[![GitHub version](https://badge.fury.io/gh/yapapaya%2Fjquery-cloneya.svg)](http://badge.fury.io/gh/yapapaya%2Fjquery-cloneya)
+ [![Build Status](https://travis-ci.org/yapapaya/jquery-cloneya.svg?branch=stable)](https://travis-ci.org/yapapaya/jquery-cloneya)
  [![Dependency Status](https://david-dm.org/yapapaya/jquery-cloneya.svg)](https://david-dm.org/yapapaya/jquery-cloneya)
  [![devDependency Status](https://david-dm.org/yapapaya/jquery-cloneya/dev-status.svg)](https://david-dm.org/yapapaya/jquery-cloneya#info=devDependencies)
  [![Bower version](https://badge.fury.io/bo/cloneya.svg)](http://badge.fury.io/bo/cloneya)
