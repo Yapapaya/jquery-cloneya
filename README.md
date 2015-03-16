@@ -1,13 +1,13 @@
 # jQuery Cloneya 
 
-[![GitHub version](https://badge.fury.io/gh/yapapaya%2Fjquery-cloneya.svg)](http://badge.fury.io/gh/yapapaya%2Fjquery-cloneya)
- [![Build Status](https://travis-ci.org/yapapaya/jquery-cloneya.svg?branch=stable)](https://travis-ci.org/yapapaya/jquery-cloneya)
+[![Build Status](https://travis-ci.org/yapapaya/jquery-cloneya.svg?branch=stable)](https://travis-ci.org/yapapaya/jquery-cloneya)
  [![Dependency Status](https://david-dm.org/yapapaya/jquery-cloneya.svg)](https://david-dm.org/yapapaya/jquery-cloneya)
  [![devDependency Status](https://david-dm.org/yapapaya/jquery-cloneya/dev-status.svg)](https://david-dm.org/yapapaya/jquery-cloneya#info=devDependencies)
+
+[![GitHub version](https://badge.fury.io/gh/yapapaya%2Fjquery-cloneya.svg)](http://badge.fury.io/gh/yapapaya%2Fjquery-cloneya)
  [![Bower version](https://badge.fury.io/bo/cloneya.svg)](http://badge.fury.io/bo/cloneya)
  [![npm version](https://badge.fury.io/js/cloneya.svg)](http://badge.fury.io/js/cloneya)
  
-
 Cloneya is a jQuery class useful for cloning DOM elements with their children. I wanted to be able to clone form inputs and groups of form inputs or fieldsets, or even whole forms. With time, I've hopefully made it very generic.
 
 ## Installation
