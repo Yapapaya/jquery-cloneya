@@ -86,4 +86,4 @@ The detailed documentation has been moved over at the [Wiki](https://github.com/
 
 ## Contributions
 
-Please read [how to contribute](https://github.com/yapapaya/jquery-cloneya/blob/stable/Contributing.md)
+Please read [how to contribute](https://github.com/yapapaya/jquery-cloneya/blob/stable/CONTRIBUTING.md)
