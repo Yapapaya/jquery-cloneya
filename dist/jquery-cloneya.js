@@ -277,18 +277,24 @@
             if ($this.config.preserveChildCount !== false) {
                 // the child count only needs preservation if they are clonable.
 
+                var originalChildren = toClone.find('.' + name + '-wrap');
+
                 // for each wrapper
-                newClone.find('.' + name + '-wrap').each(function () {
+                newClone.find('.' + name + '-wrap').each(function (index) {
+
                     /**
                      * 
                      * @type @call;jquery-cloneya_L8.$@call;closestChild
                      */
                     var inNewClone = $(this).closestChild('.' + name);
+
+                    var inOriginal = $(originalChildren[index]).closestChild('.' + name);
+
                     /**
                      * 
-                     * @type @exp;inNewClone@call;data
+                     * @type @exp;inOriginal@call;data
                      */
-                    var originalCount = inNewClone.data('initialCount');
+                    var originalCount = inOriginal.data('initialCount');
 
                     /**
                      * 
@@ -297,6 +303,8 @@
                     var $extra = inNewClone.slice(originalCount, inNewClone.length);
 
                     $extra.remove();
+
+                    inNewClone.data('initial-count', originalCount);
                 });
 
             }
