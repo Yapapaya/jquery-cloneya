@@ -271,10 +271,7 @@
              * 
              * @type @exp;$toclone@call;clone
              */
-            var newClone = toClone.clone({
-                withDataAndEvents: $this.config.dataClone,
-                deepWithDataAndEvents: $this.config.deepClone
-            });
+            var newClone = toClone.clone($this.config.dataClone, $this.config.deepClone);
 
             // we want to preserve the initial child count
             if ($this.config.preserveChildCount !== false) {
