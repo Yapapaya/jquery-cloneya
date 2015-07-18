@@ -142,6 +142,72 @@
 
             });
 
+            test("Cloning with data", function () {
+                var wrap = $('#simple-clone');
+                wrap.cloneya({
+                    dataClone: true
+                });
+                var config = wrap.cloneya('getOption');
+
+                var toClone = wrap.find(config.cloneThis).first();
+                toClone.data('any-element-data', 'original data');
+                wrap.triggerHandler('clone.cloneya', [toClone]);
+
+                var clone = toClone.next();
+                equal('original data', clone.data('any-element-data'));
+            });
+
+            test("Cloning without data", function () {
+                var wrap = $('#simple-clone');
+                wrap.cloneya({
+                    dataClone: false
+                });
+                var config = wrap.cloneya('getOption');
+
+                var toClone = wrap.find(config.cloneThis).first();
+                toClone.data('any-element-data', 'original data');
+                wrap.triggerHandler('clone.cloneya', [toClone]);
+
+                var clone = toClone.next();
+                equal(undefined, clone.data('any-element-data'));
+            });
+
+            test("Cloning with child data", function () {
+                var wrap = $('#simple-clone');
+                wrap.cloneya({
+                    dataClone: true,
+                    deepClone: true
+                });
+                var config = wrap.cloneya('getOption');
+
+                var toClone = wrap.find(config.cloneThis).first();
+                toClone.data('any-element-data', 'original data');
+                toClone.children().first().data('any-child-data', 'original child data');
+                wrap.triggerHandler('clone.cloneya', [toClone]);
+
+                var clone = toClone.next();
+                equal('original data', clone.data('any-element-data'));
+                equal('original child data', clone.children().first().data('any-child-data'));
+            });
+
+            test("Cloning without child data", function () {
+                var wrap = $('#simple-clone');
+                wrap.cloneya({
+                    dataClone: true,
+                    deepClone: false
+                });
+                var config = wrap.cloneya('getOption');
+
+                var toClone = wrap.find(config.cloneThis).first();
+                toClone.data('any-element-data', 'original data');
+                toClone.children().first().data('any-child-data', 'original child data');
+                wrap.triggerHandler('clone.cloneya', [toClone]);
+
+                var clone = toClone.next();
+                equal('original data', clone.data('any-element-data'));
+                equal(undefined, clone.children().first().data('any-child-data'));
+            });
+
             module('Events');
 
             test('Cloning', function () {
