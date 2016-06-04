@@ -113,7 +113,7 @@
 
 
             // add our classes
-            $this.$elem.addClass(this.elemClass);
+            $this.$elem.addClass($this.elemClass);
             $this.clones.addClass(name);
 
             // save the sibling count into data attr
@@ -219,7 +219,7 @@
              * 
              * @type @exp;$toclone@call;closest@call;closestChild@pro;length
              */
-            var cloneCount = toClone.closest('.' + $this.elemClass).closestChild(this.config.cloneThis).length;
+            var cloneCount = toClone.closest('.' + this.elemClass).closestChild(this.config.cloneThis).length;
 
 
             // check if we've reached the maximum limit
