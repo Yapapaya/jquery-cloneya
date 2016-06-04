@@ -68,6 +68,8 @@
         this.elem = element;
 
         this.$elem = $(element);
+	
+	this.elemClass = name + '-wrap';
 
         /**
          * creating a jQuery object, just in case
@@ -111,7 +113,7 @@
 
 
             // add our classes
-            $this.$elem.addClass(name + '-wrap');
+            $this.$elem.addClass(this.elemClass);
             $this.clones.addClass(name);
 
             // save the sibling count into data attr
@@ -156,7 +158,7 @@
                  * 
                  * @type @exp;$todelete@call;closest@call;closestChild@pro;length
                  */
-                var cloneCount = toDelete.closest($this.elem).closestChild($this.config.cloneThis).length;
+                var cloneCount = toDelete.closest('.' + $this.elemClass).closestChild($this.config.cloneThis).length;
 
                 if (cloneCount > $this.config.minimum) {
                     // trigger hook
@@ -217,7 +219,7 @@
              * 
              * @type @exp;$toclone@call;closest@call;closestChild@pro;length
              */
-            var cloneCount = toClone.closest(this.elem).closestChild(this.config.cloneThis).length;
+            var cloneCount = toClone.closest('.' + $this.elemClass).closestChild(this.config.cloneThis).length;
 
 
             // check if we've reached the maximum limit
