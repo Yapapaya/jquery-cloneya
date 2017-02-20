@@ -271,6 +271,21 @@
 
             });
 
+            test('Third party clone events', function () {
+                var wrap = $('#simple-clone');
+                wrap.cloneya();
+
+                wrap.on('clone.cloneya', function (event) {
+                    ok(event.namespace === "", "Trigged event with no namespace!");
+                });
+
+                wrap.on('clone', function () {
+                    ok(true, "Triggered third party clone event!");
+                });
+
+                wrap.triggerHandler('clone');
+            });
+
             module('Nesting');
 
             test('Cloning', function () {
