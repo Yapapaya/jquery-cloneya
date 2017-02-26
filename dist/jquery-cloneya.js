@@ -135,9 +135,9 @@
 
             // the custom clone event
             $this.$elem.on('clone.' + name, function (event, toClone) {
-
-                $this._cloneAndAppend(toClone);
-
+                if (event.namespace === name) {
+                    $this._cloneAndAppend(toClone);
+                }
             });
 
             // click handler for delete button
