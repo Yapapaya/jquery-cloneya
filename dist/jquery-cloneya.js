@@ -422,14 +422,11 @@
                         var name = $(this).attr('name');
                         // This will increment the numeric array index for cloned field names
                         if (name) {
-                            var matches = name.match(/\[([^}]+)\]/);
+                            var matches = name.match(/\[([1-9}]+)\]/);
 
                             if (matches && matches.length >= 1) {
 
-                                var st = name;
-                                name = [].map.call(st, function (s, n) {
-                                    return (!isNaN(+s) && st[n - 1] === '[' && st[n + 1] === ']') ? i : s;
-                                }).join('');
+                                name = st.replace(matches[0], "["+i+"]");
 
                                 $(this).attr('name', name);
                             }
